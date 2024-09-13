@@ -13,7 +13,17 @@
 </head>
 <body>
 <div class="header">
-    <h3>{{ league_name }}</h3>
+    <div class="logo_container max_width flex_column">
+        <div id="fantasy_logo" class="logo">
+            <img src="{% static 'images/fantasy_football_congress_logo.jpg' %}" alt="Logo">
+
+        </div>
+
+        <div class="league_name flex_row">
+            <h3>{{ league_name }}</h3>
+        </div>
+
+    </div>
 </div>
 {% for user in user_list %}
     {% if user.starters|length > 0 %}

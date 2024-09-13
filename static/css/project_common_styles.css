@@ -1,4 +1,4 @@
-body {
+body, .league_name {
     margin: 0;
     padding: 0;
 }
@@ -6,4 +6,57 @@ body {
 .header {
     height: 20%;
     background-color: aqua;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo_container {
+    margin: 0 auto;
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo img {
+    height: 120px;
+}
+
+.flex_row {
+    display: flex;
+}
+
+.flex_column {
+    display: flex;
+    flex-direction: column;
+}
+
+.max_width {
+    width: max-content;
+}
+
+.mind_width {
+    width: min-content;
+}
+
+.background_black {
+    background-color: black;
+}
+
+.margin_none {
+    margin: 0;
+}
+
+.margin_top-8px {
+    margin-top: 8px;
+}
+.margin_left-8px {
+    margin-left: 8px;
+}
+.margin_right-8px {
+    margin-right: 8px;
+}
+.margin_bottom-8px {
+    margin-bottom: 8px;
 }

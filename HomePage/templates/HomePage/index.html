@@ -1,7 +1,5 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/project_common_styles.css' %}">
-
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -9,6 +7,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous">
+    </script>
 </head>
 <body>
 <div class="header">
@@ -36,11 +39,11 @@
                 <div class="card_header flex_row align_items_center justify_content_center ">
                     <div class="photo_container">
                         <div class="player_photo"
-                             {% if user.avatar != null %}
+                                {% if user.avatar != null %}
                              style="background-image: url('https://sleepercdn.com/avatars/thumbs/{{ user.avatar }}');"
-                            {% else %}
-                             style="background-image: url('{% static 'images/default_picture.jfif'%}' );"
-                            {% endif %}>
+                                {% else %}
+                             style="background-image: url('{% static 'images/default_picture.jfif' %}' );"
+                                {% endif %}>
                         </div>
                     </div>
 
@@ -60,21 +63,22 @@
 
                 <div class="player_container">
                     {% for player in user.starters %}
-                        <div class="player_row flex_row justify_content_space_between align_items_center">
-                     <div class="nfl_player_photo" style="background-image: url('https://sleepercdn.com/content/nfl/players/{{ player.player_id }}.jpg');"></div>
-                    <div class="player_name">
-                       <div> {{ player.full_name }}</div>
-                    </div>
-                    <div class="player_pos">
-                        <div>{{ player.position }}</div>
-                    </div>
+                        <div class="player_row flex_row justify_content_space_between align_items_center padding_left_16px padding_right_16px">
+                            {% if player.position != "DEF" %}
+                                <div class="nfl_player_photo" style="background-image: url('https://sleepercdn.com/content/nfl/players/{{ player.player_id }}.jpg');"></div>
+                            {% elif player.position == "DEF" %}
+                                <div class="nfl_player_photo" style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.full_name |lower }}.png'); background-position: center"></div>
+                            {% endif %}
+                            <div class="player_name">
+                                <div>{{ player.full_name }}</div>
+                            </div>
+                            <div class="player_pos">
+                                <div>{{ player.position }}</div>
+                            </div>
                         </div>
                     {% endfor %}
 
                 </div>
-
-
-
 
             </div>
         {% endfor %}
@@ -85,6 +89,26 @@
 
 </div>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.player_pos').each(function () {
+            var position = $(this).text().trim();
+            if (position === 'QB') {
+                $(this).addClass('position_QB');
+            } else if (position === 'RB') {
+                $(this).addClass('position_RB');
+            } else if (position === 'WR') {
+                $(this).addClass('position_WR');
+            } else if (position === 'TE') {
+                $(this).addClass('position_TE');
+            } else if (position === 'K') {
+                $(this).addClass('position_kicker');
+            } else if (position === 'DEF') {
+                $(this).addClass('position_defense');
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

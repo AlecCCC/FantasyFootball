@@ -8,7 +8,7 @@ body {
 }
 
 .header {
-    height: 25%;
+    height: 250px;
     background-color: aqua;
     display: flex;
     justify-content: center;
@@ -53,6 +53,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #ffffff;
     padding: 0 10px;
     text-shadow: 1px 1px 20px white;
+    text-align: center;
 }
 
 
@@ -67,12 +68,13 @@ h1, h2, h3, h4, h5, h6 {
 .user_card {
     background-color: aliceblue;
     width: 300px;
-    margin-top: 20px;
+    margin: 20px;
     box-shadow: 0px 0px 5px black;
 }
 
 .team_name {
     padding: 8px;
+    text-align: center;
 }
 
 .card_header {
@@ -96,6 +98,13 @@ h1, h2, h3, h4, h5, h6 {
     height: 32px;
     width: 44px;
     background-color: antiquewhite;
+}
+.player_name {
+    text-align: center;
+}
+
+.player_pos {
+    text-align: center;
 }
 
 
@@ -125,25 +134,89 @@ h1, h2, h3, h4, h5, h6 {
     background-color: black;
 }
 
-.margin_none {
-    margin: 0;
-}
+/*No Padding*/
+.margin_none {margin: 0;}
+.padding_none {padding: 0}
 
-.margin_top-8px {
-    margin-top: 8px;
-}
+/* Padding Right */
+.padding_right_8px { padding-right: 8px; }
+.padding_right_16px { padding-right: 16px; }
+.padding_right_24px { padding-right: 24px; }
+.padding_right_32px { padding-right: 32px; }
+.padding_right_40px { padding-right: 40px; }
+.padding_right_48px { padding-right: 48px; }
+.padding_right_56px { padding-right: 56px; }
+.padding_right_64px { padding-right: 64px; }
 
-.margin_left-8px {
-    margin-left: 8px;
-}
+/* Padding Left */
+.padding_left_8px { padding-left: 8px; }
+.padding_left_16px { padding-left: 16px; }
+.padding_left_24px { padding-left: 24px; }
+.padding_left_32px { padding-left: 32px; }
+.padding_left_40px { padding-left: 40px; }
+.padding_left_48px { padding-left: 48px; }
+.padding_left_56px { padding-left: 56px; }
+.padding_left_64px { padding-left: 64px; }
 
-.margin_right-8px {
-    margin-right: 8px;
-}
+/* Padding Bottom */
+.padding_bottom_8px { padding-bottom: 8px; }
+.padding_bottom_16px { padding-bottom: 16px; }
+.padding_bottom_24px { padding-bottom: 24px; }
+.padding_bottom_32px { padding-bottom: 32px; }
+.padding_bottom_40px { padding-bottom: 40px; }
+.padding_bottom_48px { padding-bottom: 48px; }
+.padding_bottom_56px { padding-bottom: 56px; }
+.padding_bottom_64px { padding-bottom: 64px; }
 
-.margin_bottom-8px {
-    margin-bottom: 8px;
-}
+/* Padding Top */
+.padding_top_8px { padding-top: 8px; }
+.padding_top_16px { padding-top: 16px; }
+.padding_top_24px { padding-top: 24px; }
+.padding_top_32px { padding-top: 32px; }
+.padding_top_40px { padding-top: 40px; }
+.padding_top_48px { padding-top: 48px; }
+.padding_top_56px { padding-top: 56px; }
+.padding_top_64px { padding-top: 64px; }
+
+/* Margin Right */
+.margin_right_8px { margin-right: 8px; }
+.margin_right_16px { margin-right: 16px; }
+.margin_right_24px { margin-right: 24px; }
+.margin_right_32px { margin-right: 32px; }
+.margin_right_40px { margin-right: 40px; }
+.margin_right_48px { margin-right: 48px; }
+.margin_right_56px { margin-right: 56px; }
+.margin_right_64px { margin-right: 64px; }
+
+/* Margin Left */
+.margin_left_8px { margin-left: 8px; }
+.margin_left_16px { margin-left: 16px; }
+.margin_left_24px { margin-left: 24px; }
+.margin_left_32px { margin-left: 32px; }
+.margin_left_40px { margin-left: 40px; }
+.margin_left_48px { margin-left: 48px; }
+.margin_left_56px { margin-left: 56px; }
+.margin_left_64px { margin-left: 64px; }
+
+/* Margin Bottom */
+.margin_bottom_8px { margin-bottom: 8px; }
+.margin_bottom_16px { margin-bottom: 16px; }
+.margin_bottom_24px { margin-bottom: 24px; }
+.margin_bottom_32px { margin-bottom: 32px; }
+.margin_bottom_40px { margin-bottom: 40px; }
+.margin_bottom_48px { margin-bottom: 48px; }
+.margin_bottom_56px { margin-bottom: 56px; }
+.margin_bottom_64px { margin-bottom: 64px; }
+
+/* Margin Top */
+.margin_top_8px { margin-top: 8px; }
+.margin_top_16px { margin-top: 16px; }
+.margin_top_24px { margin-top: 24px; }
+.margin_top_32px { margin-top: 32px; }
+.margin_top_40px { margin-top: 40px; }
+.margin_top_48px { margin-top: 48px; }
+.margin_top_56px { margin-top: 56px; }
+.margin_top_64px { margin-top: 64px; }
 
 .justify_content_center {
     justify-content: center;
@@ -156,4 +229,27 @@ h1, h2, h3, h4, h5, h6 {
 }
 .justify_content_space_evenly  {
     justify-content: space-evenly;
+}
+
+.position_QB {
+    color: rgb(252, 43, 109);
+}
+
+.position_RB {
+    color: rgb(32, 206, 184);
+}
+
+.position_WR {
+   color: rgb(89, 167, 255)
+}
+.position_TE {
+    color: rgb(254, 174, 88);
+}
+
+.position_kicker {
+    color: rgb(201, 108, 255);
+}
+
+.position_defense {
+    color: rgb(191, 95, 64);
 }

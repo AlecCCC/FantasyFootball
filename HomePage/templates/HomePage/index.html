@@ -58,11 +58,22 @@
                     </div>
                 </div>
 
-                <ul>
+                <div class="player_container">
                     {% for player in user.starters %}
-                        <li>{{ player.full_name }} - {{ player.position }}</li>
+                        <div class="player_row flex_row justify_content_space_between align_items_center">
+                     <div class="nfl_player_photo" style="background-image: url('https://sleepercdn.com/content/nfl/players/{{ player.player_id }}.jpg');"></div>
+                    <div class="player_name">
+                       <div> {{ player.full_name }}</div>
+                    </div>
+                    <div class="player_pos">
+                        <div>{{ player.position }}</div>
+                    </div>
+                        </div>
                     {% endfor %}
-                </ul>
+
+                </div>
+
+
 
 
             </div>

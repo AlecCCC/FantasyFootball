@@ -45,14 +45,6 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 50%;
 }
 
-.player_photo {
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-}
-
 .photo_container {
     padding: 8px;
 }
@@ -76,13 +68,36 @@ h1, h2, h3, h4, h5, h6 {
     background-color: aliceblue;
     width: 300px;
     margin-top: 20px;
-    height: 500px;
     box-shadow: 0px 0px 5px black;
 }
 
 .team_name {
     padding: 8px;
 }
+
+.card_header {
+    border-bottom: 1px solid black;
+}
+
+.player_row {
+    border-bottom: 1px solid black;
+}
+
+.player_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+}
+.nfl_player_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 32px;
+    width: 44px;
+    background-color: antiquewhite;
+}
+
 
 
 .flex_row {
@@ -132,4 +147,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .justify_content_center {
     justify-content: center;
+}
+.justify_content_space_around {
+    justify-content: space-around;
+}
+.justify_content_space_between {
+    justify-content: space-between;
+}
+.justify_content_space_evenly  {
+    justify-content: space-evenly;
 }

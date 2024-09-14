@@ -37,13 +37,12 @@ h1, h2, h3, h4, h5, h6 {
 
 #fantasy_logo {
     background-color: aqua;
-    background-image: url("../images/fantasy_football_congress_logo.jpg");
+    background-image: url("../images/congress_2024.webp");
     background-size: contain;
-    height: 150px;
-    width: 150px;
-    border: black 2px solid;
+    height: 170px;
+    width: 170px;
+    border: #ffffff 2px solid;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 3);
 }
 
 .player_photo {
@@ -58,20 +57,17 @@ h1, h2, h3, h4, h5, h6 {
     padding: 8px;
 }
 
-.league_name {
+.league_name h2 {
     color: #ffffff;
     padding: 0 10px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.71)
+    text-shadow: 1px 1px 20px white;
 }
 
-.wrapper {
-    margin-top: 10px;
-}
 
 .card_container {
     width: 90%;
     margin: 0 auto;
-    background-color: beige;
+    /*background-color: beige;*/
     flex-wrap: wrap;
     justify-content: space-around;
 }

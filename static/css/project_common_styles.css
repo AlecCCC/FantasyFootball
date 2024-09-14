@@ -3,25 +3,91 @@ body, .league_name {
     padding: 0;
 }
 
+body {
+    background-color: rgb(9, 162, 121);
+}
+
 .header {
-    height: 20%;
+    height: 25%;
     background-color: aqua;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+.header {
+    background-image: url('../images/vecteezy_superbowl-stadium-in-night-background_20324267.jpg');
+    background-repeat: no-repeat;
+    background-size: inherit;
+    background-position: center -420px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
 .logo_container {
-    margin: 0 auto;
-    width: 20%;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .71);
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.logo img {
-    height: 120px;
+#fantasy_logo {
+    background-color: aqua;
+    background-image: url("../images/fantasy_football_congress_logo.jpg");
+    background-size: contain;
+    height: 150px;
+    width: 150px;
+    border: black 2px solid;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 3);
 }
+
+.player_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.photo_container {
+    padding: 8px;
+}
+
+.league_name {
+    color: #ffffff;
+    padding: 0 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.71)
+}
+
+.wrapper {
+    margin-top: 10px;
+}
+
+.card_container {
+    width: 90%;
+    margin: 0 auto;
+    background-color: beige;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user_card {
+    background-color: aliceblue;
+    width: 300px;
+    margin-top: 20px;
+    height: 500px;
+    box-shadow: 0px 0px 5px black;
+}
+
+.team_name {
+    padding: 8px;
+}
+
 
 .flex_row {
     display: flex;
@@ -32,11 +98,15 @@ body, .league_name {
     flex-direction: column;
 }
 
+.align_items_center {
+    align-items: center;
+}
+
 .max_width {
     width: max-content;
 }
 
-.mind_width {
+.min_width {
     width: min-content;
 }
 
@@ -51,12 +121,19 @@ body, .league_name {
 .margin_top-8px {
     margin-top: 8px;
 }
+
 .margin_left-8px {
     margin-left: 8px;
 }
+
 .margin_right-8px {
     margin-right: 8px;
 }
+
 .margin_bottom-8px {
     margin-bottom: 8px;
+}
+
+.justify_content_center {
+    justify-content: center;
 }

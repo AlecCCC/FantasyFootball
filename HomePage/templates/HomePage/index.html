@@ -2,7 +2,6 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/project_common_styles.css' %}">
 
 
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -13,34 +12,67 @@
 </head>
 <body>
 <div class="header">
-    <div class="logo_container max_width flex_column">
-        <div id="fantasy_logo" class="logo">
-            <img src="{% static 'images/fantasy_football_congress_logo.jpg' %}" alt="Logo">
+    <div class="logo_container">
+        <div class="logo_fantasy_name_container flex_column align_items_center">
 
-        </div>
+            <div id="fantasy_logo" class="logo">
 
-        <div class="league_name flex_row">
-            <h3>{{ league_name }}</h3>
+            </div>
+
+            <div class="league_name flex_row">
+                <h2>{{ league_name }}</h2>
+            </div>
+
+
         </div>
 
     </div>
 </div>
-{% for user in user_list %}
-    {% if user.starters|length > 0 %}
-    <h2>
-        {% if user.team_name and user.team_name != 'No Team Name' %}
-            {{ user.team_name }}
-        {% else %}
-            {{ user.display_name }}
-        {% endif %}
-    </h2>
-    <ul>
-        {% for player in user.starters %}
-            <li>{{ player.full_name }} - {{ player.position }}</li>
+<div class="wrapper">
+    <div class="card_container flex_row">
+        {% for user in user_list %}
+            <div class="user_card flex_column">
+
+                <div class="card_header flex_row align_items_center justify_content_center ">
+                    <div class="photo_container">
+                        <div class="player_photo"
+                             {% if user.avatar != null %}
+                             style="background-image: url('https://sleepercdn.com/avatars/thumbs/{{ user.avatar }}');"
+                            {% else %}
+                             style="background-image: url('{% static 'images/default_picture.jfif'%}' );"
+                            {% endif %}>
+                        </div>
+                    </div>
+
+
+                    <div class="team_name">
+
+                        {% if user.starters|length > 0 %}
+                            {% if user.team_name and user.team_name != 'No Team Name' %}
+                                <h2>{{ user.team_name }}</h2>
+                            {% else %}
+                                <h2>{{ user.display_name }}</h2>
+                            {% endif %}
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <ul>
+                    {% for player in user.starters %}
+                        <li>{{ player.full_name }} - {{ player.position }}</li>
+                    {% endfor %}
+                </ul>
+
+
+            </div>
         {% endfor %}
-    </ul>
-    {% endif %}
-{% endfor %}
+
+
+    </div>
+
+
+</div>
 
 
 </body>

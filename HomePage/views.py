@@ -81,11 +81,14 @@ def index(request):
         user_id = user['user_id']
         team_name = user['metadata'].get('team_name', 'No Team Name')
         display_name = user['display_name']
+        user_avatar = user['avatar']
 
         league_user_stats = {
             'user_id': user_id,
             'team_name': team_name,
-            'display_name': display_name
+            'display_name': display_name,
+            'avatar': user_avatar
+
         }
         user_list.append(league_user_stats)
 
@@ -145,10 +148,14 @@ def index(request):
         ]
         user_data['starters'] = updated_starters
 
+    user_list = [user for user in user_list if user['players']]
 
     context = {
         'user_list' : user_list,
         'league_name': league_name
     }
+
+    for user in user_list:
+        print(user['display_name'])
 
     return render(request, 'HomePage/index.html', context)

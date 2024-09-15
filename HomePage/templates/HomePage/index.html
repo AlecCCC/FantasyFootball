@@ -31,7 +31,11 @@
 
     </div>
     <div class="links">
-
+        <ul class="flex_row justify_content_space_around">
+            <li><a href="">Home</a></li>
+            <li><a href="">Weekly Matchups</a></li>
+            <li><a href="">News</a></li>
+        </ul>
     </div>
 </div>
 <div class="wrapper">
@@ -66,7 +70,7 @@
 
                 <div class="player_container">
                     {% for player in user.starters %}
-                        <div class="player_row flex_row justify_content_space_between align_items_center padding_left_16px padding_right_16px">
+                        <div class="player_row flex_row justify_content_space_between align_items_center padding_left_16px padding_right_16px padding_left_8px padding_right_8px">
                             {% if player.position != "DEF" %}
                                 <div class="nfl_player_photo"
                                      style="background-image: url('https://sleepercdn.com/content/nfl/players/{{ player.player_id }}.jpg');"></div>

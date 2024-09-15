@@ -29,10 +29,21 @@ h1, h2, h3, h4, h5, h6 {
 
 .links {
     background-color: white;
-    height: 30px;
+    height: auto;
     width: 100%;
 }
 
+.links ul {
+    margin: 8px 0 8px 0;
+}
+
+.links ul li {
+    list-style: none;
+}
+
+.links a {
+        text-decoration: none;
+}
 .logo_container {
     height: 100%;
     width: 100%;
@@ -46,8 +57,8 @@ h1, h2, h3, h4, h5, h6 {
     background-color: aqua;
     background-image: url("../images/congress_2024.webp");
     background-size: contain;
-    height: 170px;
-    width: 170px;
+    height: 140px;
+    width: 140px;
     border: #ffffff 2px solid;
     border-radius: 50%;
 }
@@ -97,6 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 .player_container {
     background-color: rgb(13, 64, 64);
     height: 100%;
+    padding: 10px 0 10px 0;
 
 }
 
@@ -122,14 +134,14 @@ h1, h2, h3, h4, h5, h6 {
     background-repeat: no-repeat;
     height: 52px;
     width: 64px;
+
 }
 
 .nfl_team_photo {
     background-size: contain;
     background-repeat: no-repeat;
-    height: 42px;
+    height: 54px;
     width: 54px;
-
 
 }
 

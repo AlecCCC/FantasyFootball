@@ -71,7 +71,7 @@
                                 <div class="nfl_player_photo"
                                      style="background-image: url('https://sleepercdn.com/content/nfl/players/{{ player.player_id }}.jpg');"></div>
                             {% elif player.position == "DEF" %}
-                                <div class="nfl_player_photo"
+                                <div class="nfl_player_photo nfl_team_photo"
                                      style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.full_name |lower }}.png'); background-position: center"></div>
                             {% endif %}
                             <div class="player_name">
@@ -112,6 +112,9 @@
                 $(this).addClass('position_defense');
             }
         });
+
+
+
     });
 </script>
 

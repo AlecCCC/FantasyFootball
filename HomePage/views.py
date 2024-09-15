@@ -19,10 +19,10 @@ def index(request):
 
     CACHE_DURATION = timedelta(hours=6)  # Fetch new data if the cache is older than this
 
-    get_rosters_in_league = 'https://api.sleeper.app/v1/league/1099775610878152704/rosters'
-    get_users_in_league = 'https://api.sleeper.app/v1/league/1099775610878152704/users'
-    get_weekly_matchups = 'https://api.sleeper.app/v1/league/1099775610878152704/matchups/2'
-    get_league_info = 'https://api.sleeper.app/v1/league/1099775610878152704'
+    get_rosters_in_league = 'https://api.sleeper.app/v1/league/1119837649793110016/rosters'
+    get_users_in_league = 'https://api.sleeper.app/v1/league/1119837649793110016/users'
+    get_weekly_matchups = 'https://api.sleeper.app/v1/league/1119837649793110016/matchups/2'
+    get_league_info = 'https://api.sleeper.app/v1/league/1119837649793110016'
 
     rostered_players = []
     user_list = []

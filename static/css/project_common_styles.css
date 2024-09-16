@@ -28,13 +28,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .links {
-    /*background-color: rgb(63, 110, 110);*/
+    background-color: rgba(0, 0, 0, .71);
     height: auto;
     width: 100%;
 }
 
 .links ul {
-    margin: 8px 0 8px 0;
     padding: 0;
 }
 
@@ -70,6 +69,9 @@ h1, h2, h3, h4, h5, h6 {
     padding: 8px;
 }
 
+.league_name {
+    padding-top: 10px;
+}
 .league_name h2 {
     color: #ffffff;
     padding: 0 10px;

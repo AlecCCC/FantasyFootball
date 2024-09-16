@@ -124,20 +124,31 @@ h1, h2, h3, h4, h5, h6 {
 .player_photo {
     background-size: contain;
     background-repeat: no-repeat;
-    height: 45px;
-    width: 45px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     border: #ffffff 2px solid;
+    background-color: rgb(39, 69, 69);
+
 }
 
 .player_row {
     height: auto;
+    border-bottom: 1px solid rgb(81, 80, 80);
+}
+
+.player_row:nth-last-child(1) {
+    border-bottom: none;
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
 
 .nfl_player_photo {
+    margin: 5px 0 5px 0;
     background-size: contain;
     background-repeat: no-repeat;
-    height: 52px;
+    background-position: center;
+    height: 64px;
     width: 64px;
 
 }

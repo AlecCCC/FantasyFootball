@@ -34,7 +34,7 @@
         <ul class="flex_row justify_content_space_around">
             <li><a href="">Home</a></li>
             <li><a href="">Weekly Matchups</a></li>
-            <li><a href="">News</a></li>
+            <li><a href="">Standings</a></li>
         </ul>
     </div>
 </div>
@@ -47,7 +47,7 @@
                     <div class="photo_container">
                         <div class="player_photo"
                                 {% if user.avatar != null %}
-                             style="background-image: url('https://sleepercdn.com/avatars/thumbs/{{ user.avatar }}');"
+                             style="background-image: url('https://sleepercdn.com/avatars/{{ user.avatar }}');"
                                 {% else %}
                              style="background-image: url('{% static 'images/default_picture.jfif' %}' );"
                                 {% endif %}>
@@ -116,7 +116,6 @@
                 $(this).addClass('position_defense');
             }
         });
-
 
 
     });

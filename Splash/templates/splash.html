@@ -1,0 +1,50 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Splash Screen</title>
+    <script>
+
+        function submitLeagueID(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            let leagueID = document.getElementById("league_id").value;
+
+            // Send the leagueID to the backend using Fetch API
+            fetch('/submit-league-id/', { // You should update this URL to your actual endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}' // Django's CSRF token for security
+                },
+                body: JSON.stringify({
+                    'league_id': leagueID
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Open the URL in a new tab if the submission is successful
+                    if (data.success) {
+                        window.open(`/homepage/league-info/${leagueID}/`, '_blank'); // Open in new tab
+                    } else {
+                        alert('Failed to submit league ID');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+<h1>Welcome! Enter your League ID</h1>
+
+<!-- Form to collect the league ID -->
+<form id="leagueForm" onsubmit="submitLeagueID(event)">
+    <label for="league_id">League ID:</label>
+    <input type="text" id="league_id" name="league_id" required>
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

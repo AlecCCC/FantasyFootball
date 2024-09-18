@@ -4,7 +4,9 @@ body, .league_name {
 }
 
 body {
-    background-color: rgb(9, 162, 121);
+    /*background-color: rgb(9, 162, 121);*/
+    background-color: rgb(21 36 32);
+
 }
 
 .header {
@@ -72,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 .league_name {
     padding-top: 10px;
 }
+
 .league_name h2 {
     color: #ffffff;
     padding: 0 10px;
@@ -169,6 +172,11 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
     color: white;
 }
+
+/*.injured_player {*/
+/*    color: black;*/
+/*}*/
+
 
 .player_pos {
     text-align: center;
@@ -515,4 +523,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .position_defense {
     color: rgb(191, 95, 64);
+}
+
+.no_position {
+    color: white;
 }

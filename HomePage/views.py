@@ -126,27 +126,44 @@ def index(request):
     # Convert Player IDs to Player Name and get their position
     for user_data in user_list:
         user_data['players'] = user_data.get('players', [])  # Ensure 'players' is initialized
-        updated_players = [
-            {
-                'full_name': player_data.get(player_id, {}).get('full_name', player_id),
-                'position': player_data.get(player_id, {}).get('position', 'Unknown Position'),
-                'player_id': player_data.get(player_id, {}).get('player_id', 'Unknown Player ID')
-            }
-            for player_id in user_data['players']
-        ]
+        updated_players = []
+        for player_id in user_data['players']:
+            if player_id == '0':
+                # Handle injured players
+                updated_players.append({
+                    'full_name': 'Injured Player',
+                    'position': 'Injured',
+                    'player_id': '0'
+                })
+            else:
+                player_info = player_data.get(player_id, {})
+                updated_players.append({
+                    'full_name': player_info.get('full_name', player_id),
+                    'position': player_info.get('position', 'Unknown Position'),
+                    'player_id': player_info.get('player_id', 'Unknown Player ID')
+                })
         user_data['players'] = updated_players
 
         user_data['starters'] = user_data.get('starters', [])  # Ensure 'starters' is initialized
-        updated_starters = [
-            {
-                'full_name': player_data.get(player_id, {}).get('full_name', player_id),
-                'position': player_data.get(player_id, {}).get('position', 'Unknown Position'),
-                'player_id': player_data.get(player_id, {}).get('player_id', 'Unknown Player ID')
-            }
-            for player_id in user_data['starters']
-        ]
+        updated_starters = []
+        for player_id in user_data['starters']:
+            if player_id == '0':
+                # Handle injured players
+                updated_starters.append({
+                    'full_name': 'Out Player',
+                    'position': 'NA',
+                    'player_id': '0'
+                })
+            else:
+                player_info = player_data.get(player_id, {})
+                updated_starters.append({
+                    'full_name': player_info.get('full_name', player_id),
+                    'position': player_info.get('position', 'Unknown Position'),
+                    'player_id': player_info.get('player_id', 'Unknown Player ID')
+                })
         user_data['starters'] = updated_starters
 
+    # Remove users with no players
     user_list = [user for user in user_list if user['players']]
 
     context = {

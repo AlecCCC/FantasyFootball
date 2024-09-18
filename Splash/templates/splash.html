@@ -1,5 +1,3 @@
-<!-- splash.html -->
-
 {% load static %}
 <html>
 <head>
@@ -31,11 +29,19 @@
     {% endif %}
 </div>
 
-<form id="league-form" method="get" action="{% url 'index' %}">
+<form id="league-form">
     <label for="league_id">Enter League ID:</label>
-    <input type="text" name="league_id" placeholder="Enter League ID" required>
-    <button type="submit">View League</button>
+    <input type="text" id="league_id" name="league_id" placeholder="Enter League ID" required>
+    <button type="button" onclick="viewLeague()">View League</button>
 </form>
+
+<script>
+function viewLeague() {
+    var leagueId = document.getElementById('league_id').value;
+    var url = "{% url 'index' %}" + "?league_id=" + encodeURIComponent(leagueId);
+    window.open(url, '_blank');
+}
+</script>
 
 </body>
 </html>

@@ -1,13 +1,5 @@
 import requests
 from django.shortcuts import render
-from django.http import JsonResponse
-import json  # Import the json module
-
-# views.py in Splash app
-import requests
-from django.shortcuts import render
-from django.http import JsonResponse
-
 
 def splash_view(request):
     if request.method == 'POST':
@@ -30,4 +22,3 @@ def splash_view(request):
             return render(request, 'splash.html', {'error': 'Failed to fetch user'})
 
     return render(request, 'splash.html')
-

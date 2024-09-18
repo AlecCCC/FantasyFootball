@@ -1,4 +1,6 @@
 {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,18 +12,22 @@
 
 <h2>Splash</h2>
 
-<form id="splash-form" method="post" action="{% url 'splash' %}">
+<form class="justify_content_center" id="splash_form" method="post" action="{% url 'splash' %}">
     {% csrf_token %}
-    <input type="text" name="username" placeholder="Enter your Sleeper username" required>
-    <button type="submit">Submit</button>
+    <label for="user_name_input">
+    </label><input id="user_name_input" type="text" name="username" placeholder="Enter your Sleeper username" required>
+    <button id="user_submit_input" type="submit">Submit</button>
 </form>
 
 <div id="leagues-container">
     {% if leagues %}
         {% for league in leagues %}
-            <div class="league-card">
-                <h3>{{ league.name }}</h3>
-                <p>ID: {{ league.league_id }}</p>
+            <div class="league_card">
+                <div class="league_content">
+                    <h3>{{ league.name }}</h3>
+                    <p>ID: {{ league.league_id }}</p>
+                </div>
+
             </div>
         {% endfor %}
     {% elif error %}

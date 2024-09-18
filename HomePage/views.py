@@ -1,28 +1,29 @@
+# HomePage/views.py
 from django.shortcuts import render
 import requests
-import pprint
 import json
 import os
 from datetime import datetime, timedelta
 
 # Create your views here.
 def index(request):
-    import requests
-    import pprint
-    import json
-    import os
-    from datetime import datetime, timedelta
+    # Get the league_id from the GET request (from the form)
+    league_id = request.GET.get('league_id')
 
-    # API URLs and cache file
+    # API URLs and cache file, using the league_id from the form
     API_URL = "https://api.sleeper.app/v1/players/nfl/"
     CACHE_FILE = "nfl_players_cache.json"
-
     CACHE_DURATION = timedelta(hours=6)  # Fetch new data if the cache is older than this
 
-    get_rosters_in_league = 'https://api.sleeper.app/v1/league/1119837649793110016/rosters'
-    get_users_in_league = 'https://api.sleeper.app/v1/league/1119837649793110016/users'
-    get_weekly_matchups = 'https://api.sleeper.app/v1/league/1119837649793110016/matchups/2'
-    get_league_info = 'https://api.sleeper.app/v1/league/1119837649793110016'
+    if not league_id:
+        # Default league_id if none is provided (in case it's used somewhere)
+        league_id = '1119837649793110016'
+
+    # URLs for the API requests, using the league_id
+    get_rosters_in_league = f'https://api.sleeper.app/v1/league/{league_id}/rosters'
+    get_users_in_league = f'https://api.sleeper.app/v1/league/{league_id}/users'
+    get_weekly_matchups = f'https://api.sleeper.app/v1/league/{league_id}/matchups/2'
+    get_league_info = f'https://api.sleeper.app/v1/league/{league_id}'
 
     rostered_players = []
     user_list = []
@@ -55,7 +56,7 @@ def index(request):
 
     print(f"Total players loaded: {len(nfl_data)}")
 
-    #Get League Name
+    # Get League Name
     response = requests.get(get_league_info).json()
     league_name = response['name']
 
@@ -88,7 +89,6 @@ def index(request):
             'team_name': team_name,
             'display_name': display_name,
             'avatar': user_avatar
-
         }
         user_list.append(league_user_stats)
 
@@ -151,7 +151,7 @@ def index(request):
     user_list = [user for user in user_list if user['players']]
 
     context = {
-        'user_list' : user_list,
+        'user_list': user_list,
         'league_name': league_name
     }
 

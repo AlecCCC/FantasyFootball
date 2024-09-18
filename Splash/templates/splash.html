@@ -1,12 +1,41 @@
+<!-- splash.html -->
+
+{% load static %}
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Splash</title>
 </head>
 <body>
+
 <h2>Splash</h2>
+
+<form id="splash-form" method="post" action="{% url 'splash' %}">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="Enter your Sleeper username" required>
+    <button type="submit">Submit</button>
+</form>
+
+<div id="leagues-container">
+    {% if leagues %}
+        {% for league in leagues %}
+            <div class="league-card">
+                <h3>{{ league.name }}</h3>
+                <p>ID: {{ league.league_id }}</p>
+            </div>
+        {% endfor %}
+    {% elif error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</div>
+
+<form id="league-form" method="get" action="{% url 'index' %}">
+    <label for="league_id">Enter League ID:</label>
+    <input type="text" name="league_id" placeholder="Enter League ID" required>
+    <button type="submit">View League</button>
+</form>
+
 </body>
 </html>

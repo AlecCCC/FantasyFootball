@@ -1,7 +1,12 @@
 import requests
 from django.shortcuts import render
 
+import requests
+from django.shortcuts import render
+
+
 def splash_view(request):
+
     if request.method == 'POST':
         username = request.POST.get('username')
         user_response = requests.get(f'https://api.sleeper.app/v1/user/{username}')
@@ -13,6 +18,17 @@ def splash_view(request):
 
             if leagues_response.status_code == 200:
                 leagues_data = leagues_response.json()
+
+
+                for league in leagues_data:
+                    avatar_id = league.get('avatar')
+                    if avatar_id:
+
+                        league['avatar_url'] = f"https://sleepercdn.com/avatars/{avatar_id}"
+                    else:
+                        league['avatar_url'] = None
+
+
                 return render(request, 'splash.html', {'leagues': leagues_data})
             else:
                 # Handle case where leagues API request fails
@@ -21,4 +37,5 @@ def splash_view(request):
             # Handle case where user API request fails
             return render(request, 'splash.html', {'error': 'Failed to fetch user'})
 
-    return render(request, 'splash.html')
+    context = {}
+    return render(request, 'splash.html', context)

@@ -4,50 +4,64 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Splash</title>
 </head>
 <body>
 
-<h2>Splash</h2>
 
-<form class="justify_content_center" id="splash_form" method="post" action="{% url 'splash' %}">
-    {% csrf_token %}
-    <label for="user_name_input">
-    </label><input id="user_name_input" type="text" name="username" placeholder="Enter your Sleeper username" required>
-    <button id="user_submit_input" type="submit">Submit</button>
-</form>
+<div class="header_container">
 
-<div id="leagues-container">
-    {% if leagues %}
-        {% for league in leagues %}
-            <div class="league_card">
-                <div class="league_content">
-                    <h3>{{ league.name }}</h3>
-                    <p>ID: {{ league.league_id }}</p>
-                </div>
 
+    <div class="header_logo_container">
+        <div class="logo"
+             style="background-image: url('{% static 'images/default_picture.jfif' %}' );"
+        ></div>
+        <h1 class="header_text">My Sleeper.API</h1>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="wrapper_content margin_top_56px">
+            <form class="justify_content_center" id="splash_form" method="post" action="{% url 'splash' %}">
+                {% csrf_token %}
+                <label for="user_name_input"></label>
+                <input id="user_name_input" type="text" name="username" placeholder="Sleeper Username" required>
+                <button id="user_submit_input" type="submit">Submit</button>
+            </form>
+
+            <div id="leagues-container">
+                {% if leagues %}
+                    {% for league in leagues %}
+                        <a class="league_card" href="{% url 'index' %}?league_id={{ league.league_id }}">
+
+                                <div class="league_content">
+                                    {% if league.avatar_url %}
+                                        <div id="fantasy_logo" class="logo"
+                                             style="background-image: url('{{ league.avatar_url }}');">
+                                        </div>
+                                    {% else %}
+                                        <div id="fantasy_logo" class="logo"
+                                             style="background-image: url('{% static 'images/default_picture.jfif' %}');">
+                                        </div>
+                                    {% endif %}
+                                    <h3>{{ league.name }}</h3>
+                                </div>
+
+                        </a>
+                    {% endfor %}
+                {% elif error %}
+                    <p>{{ error }}</p>
+                {% endif %}
             </div>
-        {% endfor %}
-    {% elif error %}
-        <p>{{ error }}</p>
-    {% endif %}
+        </div>
+
+    </div>
+
+
 </div>
-
-<form id="league-form">
-    <label for="league_id">Enter League ID:</label>
-    <input type="text" id="league_id" name="league_id" placeholder="Enter League ID" required>
-    <button type="button" onclick="viewLeague()">View League</button>
-</form>
-
-<script>
-function viewLeague() {
-    var leagueId = document.getElementById('league_id').value;
-    var url = "{% url 'index' %}" + "?league_id=" + encodeURIComponent(leagueId);
-    window.open(url, '_blank');
-}
-</script>
 
 </body>
 </html>

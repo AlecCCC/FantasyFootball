@@ -35,7 +35,7 @@
             <div id="leagues-container">
                 {% if leagues %}
                     {% for league in leagues %}
-                        <a class="league_card" href="{% url 'index' %}?league_id={{ league.league_id }}">
+                        <a class="league_card" href="{% url 'index' %}?league_id={{ league.league_id }}" target="_blank">
 
                                 <div class="league_content">
                                     {% if league.avatar_url %}

@@ -6,6 +6,8 @@ from django.shortcuts import render
 
 
 def splash_view(request):
+    username = ''
+    user_id = ''
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -27,9 +29,14 @@ def splash_view(request):
                         league['avatar_url'] = f"https://sleepercdn.com/avatars/{avatar_id}"
                     else:
                         league['avatar_url'] = None
+                print(f'Username {username} User ID {user_id}')
+                context = {
+                    'username': username,
+                    'user_id': user_id,
+                    'leagues': leagues_data
+                }
 
-
-                return render(request, 'splash.html', {'leagues': leagues_data})
+                return render(request, 'splash.html', context)
             else:
                 # Handle case where leagues API request fails
                 return render(request, 'splash.html', {'error': 'Failed to fetch leagues'})
@@ -37,5 +44,6 @@ def splash_view(request):
             # Handle case where user API request fails
             return render(request, 'splash.html', {'error': 'Failed to fetch user'})
 
-    context = {}
+    context = {
+    }
     return render(request, 'splash.html', context)

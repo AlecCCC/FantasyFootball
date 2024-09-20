@@ -35,20 +35,21 @@
             <div id="leagues-container">
                 {% if leagues %}
                     {% for league in leagues %}
-                        <a class="league_card" href="{% url 'index' %}?league_id={{ league.league_id }}" target="_blank">
+                        <a class="league_card" href="{% url 'index' league_id=league.league_id %}" target="_blank">
 
-                                <div class="league_content">
-                                    {% if league.avatar_url %}
-                                        <div id="fantasy_logo" class="logo"
-                                             style="background-image: url('{{ league.avatar_url }}');">
-                                        </div>
-                                    {% else %}
-                                        <div id="fantasy_logo" class="logo"
-                                             style="background-image: url('{% static 'images/default_picture.jfif' %}');">
-                                        </div>
-                                    {% endif %}
-                                    <h3>{{ league.name }}</h3>
-                                </div>
+                            <div class="league_content">
+                                {% if league.avatar_url %}
+                                    <div id="fantasy_logo" class="logo"
+                                         style="background-image: url('{{ league.avatar_url }}');">
+                                    </div>
+                                {% else %}
+                                    <div id="fantasy_logo" class="logo"
+                                         style="background-image: url('{% static 'images/default_picture.jfif' %}');">
+                                    </div>
+                                {% endif %}
+                                <h3>{{ league.name }}</h3>
+
+                            </div>
 
                         </a>
                     {% endfor %}

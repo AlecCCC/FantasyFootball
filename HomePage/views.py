@@ -49,6 +49,10 @@ def index(request, league_id):
 
 
 def matchups(request, league_id):
+    league_info = get_league_info(league_id)
+    league_name = league_info['league_name']
+    league_avatar = league_info['league_avatar']
+
     year = datetime.now().year
     week = 3
 
@@ -106,6 +110,8 @@ def matchups(request, league_id):
     weekly_matchups = create_team_matchup_dicts(weekly_matchups)
 
     context = {
+        'league_name': league_name,
+        'league_avatar': league_avatar,
         'user_list': user_list,
         'league_id': league_id,
         'weekly_matchups': weekly_matchups

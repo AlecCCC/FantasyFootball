@@ -1,3 +1,6 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/project_common_styles.css' %}">
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -5,6 +8,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Matchups</title>
+        <script
+            src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+            crossorigin="anonymous">
+    </script>
 </head>
 <body>
 
@@ -12,7 +20,9 @@
 
 {#{{ user_list }}#}
 ------------------------
-{{ weekly_matchups }}
+{#{{ weekly_matchups }}#}
+
+
 
 {% if weekly_matchups|length > 0 %}
     <div class="matchup">
@@ -35,7 +45,11 @@
             <p>Total Points: {{ weekly_matchups.0.teams.1.points }}</p>
             <ul>
                 {% for player in weekly_matchups.0.teams.1.players %}
-                    <li>{{ player.full_name }} ({{ player.position }}): {{ player.points }} points</li>
+                    {#                    <li>{{ player.full_name }} ({{ player.position }}): {{ player.points }} points</li>#}
+                            <div class="player_pos">
+                                <div>{{ player.position }}</div>
+                            </div>
+
                 {% endfor %}
             </ul>
         </div>
@@ -43,6 +57,35 @@
 {% else %}
     <p>No matchups available.</p>
 {% endif %}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.player_pos').each(function () {
+            var position = $(this).text().trim();
+            if (position === 'QB') {
+                $(this).addClass('position_QB');
+            } else if (position === 'RB') {
+                $(this).addClass('position_RB');
+            } else if (position === 'WR') {
+                $(this).addClass('position_WR');
+            } else if (position === 'TE') {
+                $(this).addClass('position_TE');
+            } else if (position === 'K') {
+                $(this).addClass('position_kicker');
+            } else if (position === 'DEF') {
+                $(this).addClass('position_defense');
+            } else if (position === 'NA') {
+                $(this).addClass('no_position')
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
+
 
 {#{% for matchup in weekly_matchups %}#}
 {#    <div class="matchup">#}
@@ -72,7 +115,3 @@
 {#</div>#}
 {#    <hr>#}
 {#{% endfor %}#}
-
-
-</body>
-</html>

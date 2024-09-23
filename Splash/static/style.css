@@ -452,6 +452,8 @@ body {
     justify-content: flex-end;
 }
 
+
+
 @media (max-width: 500px) {
     #leagues-container .league_card:last-child {
         margin-bottom: 40px;

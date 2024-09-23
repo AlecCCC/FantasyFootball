@@ -10,11 +10,39 @@
 
 <h1>Matchups</h1>
 
+{#{{ user_list }}#}
+------------------------
 {{ weekly_matchups }}
 
- {% for user in user_list %}
+{% for matchup in weekly_matchups %}
+    <div class="matchup">
+        <h3>Matchup {{ matchup.matchup_id }}</h3>
 
+        <!-- Team 1 Info -->
+        <div class="team team-1">
+            <h4>Team 1: {{ matchup.teams.0.team_name }}</h4>
+            <p>Total Points: {{ matchup.teams.0.points }}</p>
+            <ul>
+                {% for player in matchup.teams.0.players %}
+                    <li>{{ player.full_name }} ({{ player.position }}): {{ player.points }} points</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Team 2 Info -->
+        <div class="team team-2">
+            <h4>Team 2: {{ matchup.teams.1.team_name }}</h4>
+            <p>Total Points: {{ matchup.teams.1.points }}</p>
+            <ul>
+                {% for player in matchup.teams.1.players %}
+                    <li>{{ player.full_name }} ({{ player.position }}): {{ player.points }} points</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <hr>
 {% endfor %}
+
 
 </body>
 </html>

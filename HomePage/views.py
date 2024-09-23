@@ -1,19 +1,13 @@
-# HomePage/views.py
-from django.shortcuts import render
+
 import requests
-import json
-import os
 from datetime import datetime, timedelta
-from django.shortcuts import render
-from django.core.signing import Signer, BadSignature
-import unicodedata
 from django.shortcuts import render
 from .utils import (
     get_league_info,
     get_rosters_in_league,
     get_users_in_league,
     populate_players_and_starters,
-    convert_player_ids_to_names, get_api_data
+    convert_player_ids_to_names, get_api_data, create_team_matchup_dicts
 )
 
 
@@ -58,65 +52,66 @@ def matchups(request, league_id):
     year = datetime.now().year
     week = 3
 
-    # Get roster and user data
+    # Fetch roster and user data
     roster_ids = get_rosters_in_league(league_id)
     user_list = get_users_in_league(league_id)
-    # Create a mapping of owner_id to roster_id
     roster_map = {item['owner_id']: item['roster_id'] for item in roster_ids}
-    # Populate the players and starters for each user
     user_list = populate_players_and_starters(league_id, user_list, roster_map)
-    # Convert player IDs to their respective player names
     user_list = convert_player_ids_to_names(user_list)
-    # Remove users with no players
-    user_list = [user for user in user_list if user['players']]
-    # Map user_id to player details
-    player_mapping = {}
-    for user in user_list:
-        for player in user['players']:
-            player_mapping[player['player_id']] = player  # Map player ID to full player details
 
-    # Make sure roster IDs are mapped correctly
+    # Create player_id to name and position mapping
+    player_id_mapping = {}
     for user in user_list:
         user['roster_id'] = roster_map.get(user['user_id'])
-        user['players'] = user.get('players', [])
-        user['starters'] = user.get('starters', [])
+        user['players'] = user.get('players', [])  # Ensure 'players' exists
+        user['starters'] = user.get('starters', [])  # Ensure 'starters' exists
 
-    # Fetch weekly matchups data from Sleeper API
+        for player in user['players']:
+            player_id_mapping[player['player_id']] = {
+                'full_name': player['full_name'],
+                'position': player['position']
+            }
+
+    # Fetch weekly matchups
     weekly_matchups = requests.get(f'https://api.sleeper.app/v1/league/{league_id}/matchups/{week}').json()
 
-    # Map player IDs in weekly matchups to both player_id and player_name using player_mapping
-    def map_player_names(matchup_data, player_map):
-        # Map player IDs to both player_id and names for 'players' list
-        matchup_data['players'] = [
-            {
-                'player_id': player_id,
-                'full_name': player_map[player_id]['full_name'] if player_id in player_map else player_id
-            }
-            for player_id in matchup_data['players']
-        ]
-
-        # Map player IDs to both player_id and names for 'starters' list
-        matchup_data['starters'] = [
-            {
-                'player_id': player_id,
-                'full_name': player_map[player_id]['full_name'] if player_id in player_map else player_id
-            }
-            for player_id in matchup_data['starters']
-        ]
-
-        return matchup_data
-
-    # Apply the mapping for each matchup
+    # Process matchups
     for matchup in weekly_matchups:
-        matchup = map_player_names(matchup, player_mapping)
+        # Find the user with the matching roster_id
+        matching_user = next((user for user in user_list if user['roster_id'] == matchup['roster_id']), None)
+
+        if matching_user:
+            # Use team_name if it's not "No Team Name", otherwise use display_name
+            team_name = matching_user['team_name'] if matching_user['team_name'] != "No Team Name" else matching_user['display_name']
+            matchup['team_name'] = team_name
+
+            # Replace player IDs with names, positions, and include points
+            matchup['players'] = [
+                {
+                    'player_id': player_id,
+                    'full_name': player_id_mapping.get(player_id, {}).get('full_name', 'Unknown'),
+                    'position': player_id_mapping.get(player_id, {}).get('position', 'Unknown'),
+                    'points': matchup['players_points'].get(player_id, 0)
+                }
+                for player_id in matchup['players']
+            ]
+            matchup['starters'] = [
+                {
+                    'player_id': player_id,
+                    'full_name': player_id_mapping.get(player_id, {}).get('full_name', 'Unknown'),
+                    'position': player_id_mapping.get(player_id, {}).get('position', 'Unknown'),
+                    'points': matchup['players_points'].get(player_id, 0)
+                }
+                for player_id in matchup['starters']
+            ]
+    # weekly_matchups = [{key: value for key, value in entry.items() if key != 'players'} for entry in weekly_matchups]
+
+    weekly_matchups = create_team_matchup_dicts(weekly_matchups)
 
     context = {
         'user_list': user_list,
         'league_id': league_id,
         'weekly_matchups': weekly_matchups
     }
-
-    # Print team name with Unicode support
-    print(weekly_matchups)
 
     return render(request, "Matches/matchups.html", context)

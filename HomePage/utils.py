@@ -130,3 +130,42 @@ def get_api_data(url, file_name):
     # Return the loaded or freshly fetched data
     return load_data()
 
+
+def create_team_matchup_dicts(weekly_matchups):
+    from collections import defaultdict
+
+    # Group teams by matchup_id
+    teams_by_matchup = defaultdict(list)
+    for team in weekly_matchups:
+        teams_by_matchup[team['matchup_id']].append(team)
+
+    # Create new dictionaries
+    result = []
+    for matchup_id, teams in teams_by_matchup.items():
+        if len(teams) == 2:  # Ensure we only process matchups with exactly two teams
+            team_dicts = []
+            for team in teams:
+                team_info = {
+                    'team_name': team['team_name'],
+                    'players': [],
+                    'positions': [],
+                    'points': team['points'],
+
+                }
+                for starter in team['starters']:
+                    player_info = {
+                        'full_name': starter['full_name'],
+                        'position': starter['position'],
+                        'points': starter['points']
+                    }
+                    team_info['players'].append(player_info)
+                    team_info['positions'].append(starter['position'])
+
+                team_dicts.append(team_info)
+
+            result.append({
+                'matchup_id': matchup_id,
+                'teams': team_dicts
+            })
+
+    return result

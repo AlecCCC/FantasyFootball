@@ -149,6 +149,7 @@ def create_team_matchup_dicts(weekly_matchups):
                     'team_name': team['team_name'],
                     'players': [],
                     'positions': [],
+                    'player_id': [],
                     'points': team['points'],
 
                 }
@@ -156,6 +157,7 @@ def create_team_matchup_dicts(weekly_matchups):
                     player_info = {
                         'full_name': starter['full_name'],
                         'position': starter['position'],
+                        'player_id': starter['player_id'],
                         'points': starter['points']
                     }
                     team_info['players'].append(player_info)

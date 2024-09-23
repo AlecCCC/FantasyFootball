@@ -72,7 +72,6 @@ def matchups(request, league_id):
                 'position': player['position']
             }
 
-    # Fetch weekly matchups
     weekly_matchups = requests.get(f'https://api.sleeper.app/v1/league/{league_id}/matchups/{week}').json()
 
     # Process matchups
@@ -81,11 +80,9 @@ def matchups(request, league_id):
         matching_user = next((user for user in user_list if user['roster_id'] == matchup['roster_id']), None)
 
         if matching_user:
-            # Use team_name if it's not "No Team Name", otherwise use display_name
             team_name = matching_user['team_name'] if matching_user['team_name'] != "No Team Name" else matching_user['display_name']
             matchup['team_name'] = team_name
 
-            # Replace player IDs with names, positions, and include points
             matchup['players'] = [
                 {
                     'player_id': player_id,

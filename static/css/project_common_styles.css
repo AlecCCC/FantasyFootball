@@ -507,6 +507,17 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
 }
 
+.card_header.winner {
+    background-color: #6abf69; /* Darker green */
+    color: white; /* For better contrast */
+}
+
+.card_header.loser {
+    background-color: #e57373; /* Darker red */
+    color: white; /* For better contrast */
+}
+
+
 .position_QB {
     color: rgb(252, 43, 109);
 }

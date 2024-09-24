@@ -40,7 +40,6 @@ with open('nfl_players_cache.json', 'r') as f:
 
 
 def matchups(request, league_id):
-    # Get current week and other league data
     data = get_nfl_state()
     week = data.get('week')
     rosters = get_rosters_in_league(league_id)

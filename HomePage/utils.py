@@ -181,8 +181,10 @@ def create_team_matchup_dicts(weekly_matchups):
 
                     # If starter found, append their details to the team_info
                     if starter:
+                        # Check for DEF position and update full_name accordingly
+                        full_name = starter['player_id'] if starter['position'] == 'DEF' else starter['full_name']
                         player_info = {
-                            'full_name': starter['full_name'],
+                            'full_name': full_name,
                             'position': starter['position'],
                             'player_id': starter['player_id'],
                             'points': starter['points']

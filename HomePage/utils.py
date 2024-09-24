@@ -32,9 +32,13 @@ def get_users_in_league(league_id):
     response = requests.get(users_url).json()
     user_list = []
     for user in response:
+        team_name = user['metadata'].get('team_name', '')
+        if not team_name:
+            team_name = user['display_name']
+
         user_list.append({
             'user_id': user['user_id'],
-            'team_name': user['metadata'].get('team_name', 'No Team Name'),
+            'team_name': team_name,
             'display_name': user['display_name'],
             'avatar': user['avatar']
         })

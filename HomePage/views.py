@@ -61,21 +61,17 @@ def matchups(request, league_id):
                     'position': position,
                     'points': matchup['players_points'].get(player_id, 0.0)  # Include player points if available
                 }
-
+    #
     for roster in rosters:
-
         matching_user = next((user for user in user_list if user['user_id'] == roster['owner_id']), None)
-
         # If a match is found, update the roster with team_name and avatar
         if matching_user:
             roster['team_name'] = matching_user['team_name']
             roster['avatar'] = matching_user['avatar']
 
+    # Grab a rosters, wins, ties, losses, team_name, and avatar_id to put in weekly matchups.
     for matchup in weekly_matchups:
-        # Find the corresponding roster where the roster_id matches
         matching_roster = next((roster for roster in rosters if roster['roster_id'] == matchup['roster_id']), None)
-
-        # If a matching roster is found, add the relevant fields to the matchup
         if matching_roster:
             matchup['wins'] = matching_roster['wins']
             matchup['ties'] = matching_roster['ties']

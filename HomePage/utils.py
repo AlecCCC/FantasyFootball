@@ -19,7 +19,10 @@ def get_league_info(league_id):
 def get_rosters_in_league(league_id):
     rosters_url = f'https://api.sleeper.app/v1/league/{league_id}/rosters'
     response = requests.get(rosters_url).json()
-    roster_ids = [{'roster_id': roster['roster_id'], 'owner_id': roster['owner_id']} for roster in response]
+    roster_ids = [{'roster_id': roster['roster_id'], 'owner_id': roster['owner_id'],
+                   'wins': roster['settings'].get('wins', 0),
+                   'ties': roster['settings'].get('ties', 0),
+                   'losses': roster['settings'].get('losses', 0)} for roster in response]
     return roster_ids
 
 

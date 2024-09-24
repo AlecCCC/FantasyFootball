@@ -22,6 +22,7 @@ def index(request, league_id):
 
     # Get rosters and users in the league
     roster_ids = get_rosters_in_league(league_id)
+    print(roster_ids)
     user_list = get_users_in_league(league_id)
 
     # Create a mapping of owner_id to roster_id

@@ -1,12 +1,68 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
 <html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Splash</title>
 </head>
 <body>
-<h2>Splash</h2>
+
+
+<div class="header_container">
+
+
+    <div class="header_logo_container">
+        <div class="logo"
+             style="background-image: url('{% static 'images/default_picture.jfif' %}' );"
+        ></div>
+        <h1 class="header_text">My Sleeper.API</h1>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="wrapper_content margin_top_56px">
+            <form class="justify_content_center" id="splash_form" method="post" action="{% url 'splash' %}">
+                {% csrf_token %}
+                <label for="user_name_input"></label>
+                <input id="user_name_input" type="text" name="username" placeholder="Sleeper Username" required>
+                <button id="user_submit_input" type="submit">Submit</button>
+            </form>
+
+            <div id="leagues-container">
+                {% if leagues %}
+                    {% for league in leagues %}
+                        <a class="league_card" href="{% url 'index' league_id=league.league_id %}" target="_blank">
+
+                            <div class="league_content">
+                                {% if league.avatar_url %}
+                                    <div id="fantasy_logo" class="logo"
+                                         style="background-image: url('{{ league.avatar_url }}');">
+                                    </div>
+                                {% else %}
+                                    <div id="fantasy_logo" class="logo"
+                                         style="background-image: url('{% static 'images/default_picture.jfif' %}');">
+                                    </div>
+                                {% endif %}
+                                <h3>{{ league.name }}</h3>
+
+                            </div>
+
+                        </a>
+                    {% endfor %}
+                {% elif error %}
+                    <p>{{ error }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
 </body>
 </html>

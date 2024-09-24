@@ -1,4 +1,5 @@
 {% load static %}
+{% include 'header.html' %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/project_common_styles.css' %}">
 <html>
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ league_name }}</title>
     <script
             src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
@@ -14,30 +15,6 @@
     </script>
 </head>
 <body>
-<div class="header">
-    <div class="logo_container">
-        <div class="logo_fantasy_name_container flex_column align_items_center">
-
-            <div id="fantasy_logo" class="logo">
-
-            </div>
-
-            <div class="league_name flex_row">
-                <h2>{{ league_name }}</h2>
-            </div>
-
-
-        </div>
-
-    </div>
-    <div class="links">
-        <ul class="flex_row justify_content_space_around">
-            <li><a href="">Home</a></li>
-            <li><a href="">Weekly Matchups</a></li>
-            <li><a href="">Standings</a></li>
-        </ul>
-    </div>
-</div>
 <div class="wrapper">
     <div class="card_container flex_row">
         {% for user in user_list %}
@@ -71,16 +48,33 @@
                 <div class="player_container">
                     {% for player in user.starters %}
                         <div class="player_row flex_row justify_content_space_between align_items_center padding_left_16px padding_right_16px padding_left_8px padding_right_8px">
-                            {% if player.position != "DEF" %}
+
+
+                            {% if player.full_name == "Out Player" %}
                                 <div class="nfl_player_photo"
-                                     style="background-image: url('https://sleepercdn.com/content/nfl/players/{{ player.player_id }}.jpg');"></div>
-                            {% elif player.position == "DEF" %}
-                                <div class="nfl_player_photo nfl_team_photo"
-                                     style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.full_name |lower }}.png'); background-position: center"></div>
+                                     style="background-image: url(https://sleepercdn.com/images/v2/icons/player_default.webp);"></div>
+                            {% else %}
+                                {% if player.position != "DEF" %}
+                                    <div class="nfl_player_photo"
+                                         style="background-image: url('https://sleepercdn.com/content/nfl/players/thumb/{{ player.player_id }}.jpg');"></div>
+                                {% elif player.position == "DEF" %}
+                                    <div class="nfl_player_photo nfl_team_photo"
+                                         style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.full_name |lower }}.png'); background-position: center;"></div>
+                                {% endif %}
                             {% endif %}
-                            <div class="player_name">
-                                <div>{{ player.full_name }}</div>
-                            </div>
+
+                            {% if player.full_name == "Out Player" %}
+                                <div class="player_name injured_player">
+                                    <div>Out Player</div>
+                                </div>
+                            {% else %}
+                                <div class="player_name">
+                                    <div>{{ player.full_name }}</div>
+                                </div>
+
+
+                            {% endif %}
+
                             <div class="player_pos">
                                 <div>{{ player.position }}</div>
                             </div>
@@ -114,6 +108,8 @@
                 $(this).addClass('position_kicker');
             } else if (position === 'DEF') {
                 $(this).addClass('position_defense');
+            } else if (position === 'NA') {
+                $(this).addClass('no_position')
             }
         });
 

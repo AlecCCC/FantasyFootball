@@ -4,7 +4,9 @@ body, .league_name {
 }
 
 body {
-    background-color: rgb(9, 162, 121);
+    /*background-color: rgb(9, 162, 121);*/
+    background-color: rgb(57, 57, 74);
+
 }
 
 .header {
@@ -72,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 .league_name {
     padding-top: 10px;
 }
+
 .league_name h2 {
     color: #ffffff;
     padding: 0 10px;
@@ -81,6 +84,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .card_container {
+    padding-top: 20px;
     width: 90%;
     margin: 0 auto;
     /*background-color: beige;*/
@@ -92,7 +96,7 @@ h1, h2, h3, h4, h5, h6 {
 .user_card {
     border-radius: 20px 20px 30px 30px;
     border: 1px solid black;
-    width: 300px;
+    width: 450px;
     height: auto;
     margin: 20px;
     box-shadow: 0px 0px 5px black;
@@ -170,8 +174,17 @@ h1, h2, h3, h4, h5, h6 {
     color: white;
 }
 
+/*.injured_player {*/
+/*    color: black;*/
+/*}*/
+
+
 .player_pos {
     text-align: center;
+}
+
+.player_table {
+    width: 100%;
 }
 
 
@@ -493,6 +506,26 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: flex-end;
 }
 
+.total_points {
+    color: white;
+    text-align: left;
+}
+
+.player_points{
+    color: white;
+    text-align: center;
+}
+
+.card_header.winner {
+    background-color: #6abf69; /* Darker green */
+    color: white; /* For better contrast */
+}
+
+.card_header.loser {
+    background-color: #e57373; /* Darker red */
+    color: white; /* For better contrast */
+}
+
 .position_QB {
     color: rgb(252, 43, 109);
 }
@@ -515,4 +548,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .position_defense {
     color: rgb(191, 95, 64);
+}
+
+.no_position {
+    color: white;
 }

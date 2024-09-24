@@ -1,3 +1,4 @@
+import pprint
 
 import requests
 from datetime import datetime, timedelta
@@ -7,7 +8,7 @@ from .utils import (
     get_rosters_in_league,
     get_users_in_league,
     populate_players_and_starters,
-    convert_player_ids_to_names, get_api_data, create_team_matchup_dicts
+    convert_player_ids_to_names, get_api_data, get_nfl_state, get_weekly_matchups, create_team_matchup_dicts
 )
 
 
@@ -33,75 +34,61 @@ def index(request, league_id):
     return render(request, 'HomePage/index.html', context)
 
 
+import json
+with open('nfl_players_cache.json', 'r') as f:
+    player_info = json.load(f)
+
+
 def matchups(request, league_id):
-    league_info = get_league_info(league_id)
-    league_name = league_info['league_name']
-    league_avatar = league_info['league_avatar']
-
-    year = datetime.now().year
-    week = 3
-
-    roster_ids = get_rosters_in_league(league_id)
+    # Get current week and other league data
+    data = get_nfl_state()
+    week = data.get('week')
+    rosters = get_rosters_in_league(league_id)
     user_list = get_users_in_league(league_id)
-    roster_map = {item['owner_id']: item['roster_id'] for item in roster_ids}
-    user_list = populate_players_and_starters(league_id, user_list, roster_map)
-    user_list = convert_player_ids_to_names(user_list)
+    weekly_matchups = get_weekly_matchups(league_id, 3)
 
-    # Create player_id to name and position mapping
-    player_id_mapping = {}
-    for user in user_list:
-        user['roster_id'] = roster_map.get(user['user_id'])
-        user['players'] = user.get('players', [])  # Ensure 'players' exists
-        user['starters'] = user.get('starters', [])  # Ensure 'starters' exists
+    # Add player details to matchups
+    for matchup in weekly_matchups:
+        for i, player_id in enumerate(matchup['players']):
+            if player_id in player_info:
+                player = player_info[player_id]
+                position = player.get('position', 'Unknown')
+                full_name = player.get('full_name', 'Unknown')
 
-        for player in user['players']:
-            player_id_mapping[player['player_id']] = {
-                'full_name': player['full_name'],
-                'position': player['position']
-            }
+                matchup['players'][i] = {
+                    'player_id': player_id,
+                    'full_name': full_name,
+                    'position': position,
+                    'points': matchup['players_points'].get(player_id, 0.0)  # Include player points if available
+                }
 
-    weekly_matchups = requests.get(f'https://api.sleeper.app/v1/league/{league_id}/matchups/{week}').json()
+    for roster in rosters:
 
-    test_matchup = weekly_matchups
+        matching_user = next((user for user in user_list if user['user_id'] == roster['owner_id']), None)
+
+        # If a match is found, update the roster with team_name and avatar
+        if matching_user:
+            roster['team_name'] = matching_user['team_name']
+            roster['avatar'] = matching_user['avatar']
 
     for matchup in weekly_matchups:
-        matching_user = next((user for user in user_list if user['roster_id'] == matchup['roster_id']), None)
+        # Find the corresponding roster where the roster_id matches
+        matching_roster = next((roster for roster in rosters if roster['roster_id'] == matchup['roster_id']), None)
 
-        if matching_user:
-            team_name = matching_user['team_name'] if matching_user['team_name'] != "No Team Name" else matching_user[
-                'display_name']
-            matchup['team_name'] = team_name
-            matchup['avatar'] = matching_user.get('avatar', None)
+        # If a matching roster is found, add the relevant fields to the matchup
+        if matching_roster:
+            matchup['wins'] = matching_roster['wins']
+            matchup['ties'] = matching_roster['ties']
+            matchup['losses'] = matching_roster['losses']
+            matchup['team_name'] = matching_roster['team_name']
+            matchup['avatar'] = matching_roster['avatar']
 
-            matchup['players'] = [
-                {
-                    'player_id': player_id,
-                    'full_name': player_id_mapping.get(player_id, {}).get('full_name', 'Unknown'),
-                    'position': player_id_mapping.get(player_id, {}).get('position', 'Unknown'),
-                    'points': matchup['players_points'].get(player_id, 0)
-                }
-                for player_id in matchup['players']
-            ]
-            matchup['starters'] = [
-                {
-                    'player_id': player_id,
-                    'full_name': player_id_mapping.get(player_id, {}).get('full_name', 'Unknown'),
-                    'position': player_id_mapping.get(player_id, {}).get('position', 'Unknown'),
-                    'points': matchup['players_points'].get(player_id, 0)
-                }
-                for player_id in matchup['starters']
-            ]
-    # weekly_matchups = [{key: value for key, value in entry.items() if key != 'players'} for entry in weekly_matchups]
     weekly_matchups = create_team_matchup_dicts(weekly_matchups)
-    print("Player IDs in matchup:", matchup['players'])
     context = {
-        'league_name': league_name,
-        'league_avatar': league_avatar,
-        'user_list': user_list,
         'league_id': league_id,
+        'rosters':rosters,
         'weekly_matchups': weekly_matchups,
-        'test_macthup': test_matchup
-
+        'user_list': user_list
     }
 
     return render(request, "Matches/matchups.html", context)

@@ -44,6 +44,14 @@ def get_users_in_league(league_id):
         })
     return user_list
 
+def get_weekly_matchups(league_id, week):
+    weekly_matchups_url = f'https://api.sleeper.app/v1/league/{league_id}/matchups/{week}'
+    weekly_matchups = requests.get(weekly_matchups_url).json()
+    return weekly_matchups
+def get_nfl_state():
+    nfl_data ='https://api.sleeper.app/v1/state/nfl'
+    nfl_data = requests.get(nfl_data).json()
+    return nfl_data
 
 # Populate players and starters for each user
 def populate_players_and_starters(league_id, user_list, roster_map):
@@ -140,38 +148,58 @@ def get_api_data(url, file_name):
 
 def create_team_matchup_dicts(weekly_matchups):
     from collections import defaultdict
+
+    # Group teams by matchup_id
     teams_by_matchup = defaultdict(list)
     for team in weekly_matchups:
         teams_by_matchup[team['matchup_id']].append(team)
 
     result = []
+
+    # Process each matchup
     for matchup_id, teams in teams_by_matchup.items():
         if len(teams) == 2:  # Ensure we only process matchups with exactly two teams
             team_dicts = []
             for team in teams:
+                # Create the team info with the new fields included
                 team_info = {
-                    'team_name': team['team_name'],
-                    'avatar': team.get('avatar', None),  # Add avatar to team info
-                    'players': [],
-                    'positions': [],
-                    'player_id': [],
-                    'points': team['points'],
+                    'team_name': team['team_name'],  # Team name
+                    'avatar': team.get('avatar', None),  # Avatar URL
+                    'wins': team.get('wins', 0),  # Wins
+                    'ties': team.get('ties', 0),  # Ties
+                    'losses': team.get('losses', 0),  # Losses
+                    'points': team['points'],  # Total points
+                    'players': [],  # Initialize players list
+                    'positions': [],  # Initialize positions list
+                    'player_id': [],  # Initialize player IDs list
                 }
-                for starter in team['starters']:
-                    player_info = {
-                        'full_name': starter['full_name'],
-                        'position': starter['position'],
-                        'player_id': starter['player_id'],
-                        'points': starter['points']
-                    }
-                    team_info['players'].append(player_info)
-                    team_info['positions'].append(starter['position'])
 
+                # Process each starter in the team's 'starters' list
+                for starter_id in team['starters']:
+                    # Find the corresponding player in the 'players' list by matching player_id
+                    starter = next((player for player in team['players'] if player['player_id'] == starter_id), None)
+
+                    # If starter found, append their details to the team_info
+                    if starter:
+                        player_info = {
+                            'full_name': starter['full_name'],
+                            'position': starter['position'],
+                            'player_id': starter['player_id'],
+                            'points': starter['points']
+                        }
+                        # Append player info to respective lists
+                        team_info['players'].append(player_info)
+                        team_info['positions'].append(starter['position'])
+                        team_info['player_id'].append(starter['player_id'])
+
+                # Append the team's info to team_dicts
                 team_dicts.append(team_info)
 
+            # Append the final matchup info with both teams
             result.append({
                 'matchup_id': matchup_id,
                 'teams': team_dicts
             })
 
+    # Return the result containing the processed matchups
     return result

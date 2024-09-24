@@ -133,13 +133,10 @@ def get_api_data(url, file_name):
 
 def create_team_matchup_dicts(weekly_matchups):
     from collections import defaultdict
-
-    # Group teams by matchup_id
     teams_by_matchup = defaultdict(list)
     for team in weekly_matchups:
         teams_by_matchup[team['matchup_id']].append(team)
 
-    # Create new dictionaries
     result = []
     for matchup_id, teams in teams_by_matchup.items():
         if len(teams) == 2:  # Ensure we only process matchups with exactly two teams
@@ -147,11 +144,11 @@ def create_team_matchup_dicts(weekly_matchups):
             for team in teams:
                 team_info = {
                     'team_name': team['team_name'],
+                    'avatar': team.get('avatar', None),  # Add avatar to team info
                     'players': [],
                     'positions': [],
                     'player_id': [],
                     'points': team['points'],
-
                 }
                 for starter in team['starters']:
                     player_info = {

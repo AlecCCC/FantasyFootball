@@ -56,7 +56,6 @@ def matchups(request, league_id):
     year = datetime.now().year
     week = 3
 
-    # Fetch roster and user data
     roster_ids = get_rosters_in_league(league_id)
     user_list = get_users_in_league(league_id)
     roster_map = {item['owner_id']: item['roster_id'] for item in roster_ids}
@@ -84,8 +83,10 @@ def matchups(request, league_id):
         matching_user = next((user for user in user_list if user['roster_id'] == matchup['roster_id']), None)
 
         if matching_user:
-            team_name = matching_user['team_name'] if matching_user['team_name'] != "No Team Name" else matching_user['display_name']
+            team_name = matching_user['team_name'] if matching_user['team_name'] != "No Team Name" else matching_user[
+                'display_name']
             matchup['team_name'] = team_name
+            matchup['avatar'] = matching_user.get('avatar', None)
 
             matchup['players'] = [
                 {
@@ -105,7 +106,7 @@ def matchups(request, league_id):
                 }
                 for player_id in matchup['starters']
             ]
-    # weekly_matchups = [{key: value for key, value in entry.items() if key != 'players'} for entry in weekly_matchups]
+    weekly_matchups = [{key: value for key, value in entry.items() if key != 'players'} for entry in weekly_matchups]
 
     weekly_matchups = create_team_matchup_dicts(weekly_matchups)
 

@@ -502,6 +502,11 @@ h1, h2, h3, h4, h5, h6 {
     justify-content: flex-end;
 }
 
+.player_points, .total_points {
+    color: white;
+    text-align: left;
+}
+
 .position_QB {
     color: rgb(252, 43, 109);
 }

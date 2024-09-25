@@ -1,17 +1,31 @@
+{% load static %}
 <div class="header">
     <div class="logo_container">
         <div class="logo_fantasy_name_container flex_column align_items_center">
-            <div id="fantasy_logo" class="logo">
-            </div>
+
+            {% if league_avatar != null %}
+                <div id="fantasy_logo" class="logo"
+                     style="background-image: url('https://sleepercdn.com/avatars/{{ league_avatar }}');">
+                </div>
+            {% else %}
+                <div id="fantasy_logo" class="logo"
+                     style="background-image: url('{% static 'images/default_picture.jfif' %}' );">
+                </div>
+            {% endif %}
+
             <div class="league_name flex_row">
                 <h2>{{ league_name }}</h2>
+                <h2>{{ user_list.username }}</h2>
             </div>
+
+
         </div>
+
     </div>
     <div class="links">
         <ul class="flex_row justify_content_space_around">
-            <li><a href="">Home</a></li>
-            <li><a href="">Weekly Matchups</a></li>
+            <li><a href="{% url 'index' league_id=league_id %}">Home</a></li>
+            <li><a href="{% url 'matchups' league_id=league_id %}">Weekly Matchups</a></li>
             <li><a href="">Standings</a></li>
         </ul>
     </div>

@@ -24,6 +24,11 @@
 {#{{ weekly_matchups }}#}
 
 <div class="wrapper">
+    <div class="carousel-navigation">
+        <a href="{% url 'matchups' league_id previous_week %}" class="carousel-button">Previous Week</a>
+        <span>Week {{ current_week }}</span>
+        <a href="{% url 'matchups' league_id next_week %}" class="carousel-button">Next Week</a>
+    </div>
     <div class="card_container flex_row">
         {% if weekly_matchups|length > 0 %}
             {% for matchup in weekly_matchups %}
@@ -31,15 +36,16 @@
                      data-team2-points="{{ matchup.teams.1.points }}">
                     <!-- Team 1 Info -->
                     <div class="team team-1 user_card flex_column">
+                        <!-- Team 1 Header -->
                         <div class="card_header flex_row align_items_center justify_content_space_evenly"
                              id="team1-header">
                             <div class="photo_container flex_row align_items_center justify_content_space_around">
                                 <div class="player_photo"
-                                        {% if matchup.teams.0.avatar %}
+                                     {% if matchup.teams.0.avatar %}
                                      style="background-image: url('https://sleepercdn.com/avatars/{{ matchup.teams.0.avatar }}');"
-                                        {% else %}
+                                     {% else %}
                                      style="background-image: url('{% static 'images/default_picture.jfif' %}');"
-                                        {% endif %}>
+                                     {% endif %}>
                                 </div>
                                 <div class="team_name">
                                     <h4>{{ matchup.teams.0.team_name }}</h4>
@@ -78,15 +84,16 @@
 
                     <!-- Team 2 Info -->
                     <div class="team team-2 user_card flex_column">
+                        <!-- Team 2 Header -->
                         <div class="card_header flex_row align_items_center justify_content_space_evenly"
                              id="team2-header">
                             <div class="photo_container flex_row align_items_center justify_content_space_around">
                                 <div class="player_photo"
-                                        {% if matchup.teams.1.avatar %}
+                                     {% if matchup.teams.1.avatar %}
                                      style="background-image: url('https://sleepercdn.com/avatars/{{ matchup.teams.1.avatar }}');"
-                                        {% else %}
+                                     {% else %}
                                      style="background-image: url('{% static 'images/default_picture.jfif' %}');"
-                                        {% endif %}>
+                                     {% endif %}>
                                 </div>
                                 <div class="team_name">
                                     <h4>{{ matchup.teams.1.team_name }}</h4>
@@ -131,7 +138,7 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+   // $(document).ready(function () {
         // Iterate through each matchup
         $('.matchup').each(function () {
             var team1Points = parseInt($(this).data('team1-points'));
@@ -170,7 +177,7 @@
                 $(this).addClass('no_position');
             }
         });
-    });
+  //  });
 </script>
 
 </body>

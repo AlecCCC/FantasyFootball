@@ -64,6 +64,9 @@ def matchups(request, league_id, current_week):
                     'position': position,
                     'points': matchup['players_points'].get(player_id, 0.0)
                 }
+    previous_week = max(1, current_week - 1)  # Ensure week doesn't go below 1
+    next_week = current_week + 1  # Assuming no upper limit for weeks
+
 
     # Populate rosters with user info
     for roster in rosters:
@@ -88,8 +91,10 @@ def matchups(request, league_id, current_week):
         'rosters': rosters,
         'weekly_matchups': weekly_matchups,
         'user_list': user_list,
-        'fetched_week':fetched_week,
-        'current_week': current_week
+        'fetched_week': fetched_week,
+        'current_week': current_week,
+        'previous_week': previous_week,
+        'next_week': next_week,
     }
 
     return render(request, "Matches/matchups.html", context)

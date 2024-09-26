@@ -213,6 +213,81 @@ h1, h2, h3, h4, h5, h6 {
     background-color: black;
 }
 
+
+/*Matchups HTML*/
+.matchup {
+    margin-bottom: 50px;
+    box-shadow: 0 0 5px black;
+    border-radius: 20px
+}
+
+#team1-header {
+    border-radius: 20px 0 0 0;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+}
+
+#team2-header {
+    border-radius: 0 20px 0 0;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+
+}
+
+.team1_container {
+    border-radius: 0 0 0 20px
+}
+
+.team2_container {
+    border-radius: 0 0 20px 0
+}
+
+
+.team.team-1.user_card {
+    margin: 0;
+    border: none;
+    border-radius: 0 0 0 20px;
+    box-shadow: none;
+}
+
+.team.team-2.user_card {
+    margin: 0;
+    border: none;
+    border-radius: 0 0 20px 0;
+    box-shadow: none;
+}
+
+
+.team.team-1.user_card {
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.team.team-2.user_card {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.player_table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border-bottom: 1px solid black;
+    border-spacing: 0;
+
+}
+
+.player_table tr:last-child {
+    border-bottom: none;
+}
+
+.player_table tr.player_row:last-of-type td {
+    border-bottom: none; /* Remove bottom border from the last player_row */
+}
+
+
 /*No Padding*/
 .margin_none {
     margin: 0;
@@ -511,7 +586,7 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
 }
 
-.player_points{
+.player_points {
     color: white;
     text-align: center;
 }

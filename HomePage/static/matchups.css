@@ -200,6 +200,10 @@
 
 @media (max-width: 700px) {
 
+    .wrapper {
+        margin: 0 16px 0 16px;
+    }
+
     .headers {
         height: auto;
         background-color: rgb(13, 64, 64);

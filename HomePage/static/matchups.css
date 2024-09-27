@@ -4,12 +4,20 @@
     max-width: 600px;
     margin: 24px auto;
     align-items: center;
+    color: whitesmoke;
 }
 
-.carousel-navigation a {
+.carousel-button {
+    color: whitesmoke;
     text-decoration: none;
-    color: white;
 }
+
+.carousel-button .arrow-icon {
+    width: 24px; /* Adjust size */
+    height: auto;
+    color: #3498db; /* This sets the color of the SVG */
+}
+
 
 .carousel-navigation h3 {
     flex-grow: 1;

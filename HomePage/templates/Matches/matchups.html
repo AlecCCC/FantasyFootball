@@ -22,9 +22,19 @@
 
 
     <div class="carousel-navigation">
-        <a href="{% url 'matchups' league_id previous_week %}" class="carousel-button">Previous Week</a>
+        <a href="{% url 'matchups' league_id previous_week %}" class="carousel-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="arrow-icon">
+                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                      fill="currentColor"/>
+            </svg>
+        </a>
         <h3>Week {{ current_week }} Matchups</h3>
-        <a href="{% url 'matchups' league_id next_week %}" class="carousel-button">Next Week</a>
+        <a href="{% url 'matchups' league_id next_week %}" class="carousel-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="arrow-icon">
+                <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                      fill="currentColor"/>
+            </svg>
+        </a>
     </div>
 
     {% for matchup in weekly_matchups %}
@@ -138,7 +148,7 @@
                 </div>
 
             </div>
-
+            <!--Rosters for desktop view -->
             <div class="team_rosters flex_row" style="display: none">
                 <div class="team1_roster">
                     <table class="player_table">
@@ -218,10 +228,8 @@
     });
 
     $(document).ready(function () {
-        // Define the media query
         var mediaQuery = window.matchMedia("(max-width: 700px)");
 
-        // Function to handle the header click
         function handleHeaderClick() {
             $(".headers").click(function () {
                 var $matchup = $(this).closest(".weekly_matchup");
@@ -229,9 +237,12 @@
                 var $team1Header = $matchup.find(".team1_header");
                 var $team2Header = $matchup.find(".team2_header");
 
+                if (!$teamRosters.is(":visible")) {
+                    $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
+                    $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
+                }
                 $teamRosters.slideToggle(300, function () {
-                    let expanded = $teamRosters.is(":visible");
-                    if (expanded) {
+                    if ($teamRosters.is(":visible")) {
                         $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
                         $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
                     } else {
@@ -245,8 +256,8 @@
         if (!mediaQuery.matches) {
             handleHeaderClick();
         }
-
     });
+
 
     $(document).ready(function () {
         $(".team1_header").click(function () {
@@ -264,20 +275,14 @@
 
             if (window.matchMedia("(max-width: 700px)").matches) {
                 if ($header.hasClass('team2_header_toggle_on')) {
-                    // Add 'toggle_on' class immediately
                     $header.addClass('team2_header_toggle_on');
-                    // Slide toggle and add 'toggle_off' class after animation
                     $team2Rosters.slideToggle(300, function () {
                         $header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
                     });
                 } else {
-                    // Add 'toggle_on' class immediately
                     $header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-                    // Slide toggle
                     $team2Rosters.slideToggle(300);
                 }
-
-                // Toggle border radius classes
                 $header.toggleClass("expanded");
             }
         });

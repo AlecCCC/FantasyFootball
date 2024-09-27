@@ -56,6 +56,33 @@
                         <p>Points: {{ matchup.teams.0.points }}</p>
                     </div>
                 </div>
+                <div class="team_1_rosters_mobile flex_row" style="display: none">
+                    <div class="team1_roster_mobile">
+                        <table class="player_table">
+                            <tbody>
+                            {% for player in matchup.teams.0.players %}
+                                <tr class="player_row">
+                                    <td class="nfl_player_photo padding_left_16px">
+                                        {% if player.position != "DEF" %}
+                                            <div class="nfl_player_photo"
+                                                 style="background-image: url('https://sleepercdn.com/content/nfl/players/thumb/{{ player.player_id }}.jpg');">
+                                            </div>
+                                        {% elif player.position == "DEF" %}
+                                            <div class="nfl_player_photo nfl_team_photo"
+                                                 style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.player_id|lower }}.png'); background-position: center;">
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="player_name">{{ player.full_name }}</td>
+                                    <td class="player_points">{{ player.points }}</td>
+                                    <td class="player_pos">{{ player.position }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
 
                 <!-- Team 2 Header -->
                 <div class="team2_header flex_row align_items_center justify_content_space_evenly
@@ -83,6 +110,33 @@
                         <p>Points: {{ matchup.teams.1.points }}</p>
                     </div>
                 </div>
+                <div class="team_2_rosters_mobile flex_row" style="display: none">
+                    <div class="team2_roster_mobile">
+                        <table class="player_table">
+                            <tbody>
+                            {% for player in matchup.teams.1.players %}
+                                <tr class="player_row">
+                                    <td class="nfl_player_photo padding_left_16px">
+                                        {% if player.position != "DEF" %}
+                                            <div class="nfl_player_photo"
+                                                 style="background-image: url('https://sleepercdn.com/content/nfl/players/thumb/{{ player.player_id }}.jpg');">
+                                            </div>
+                                        {% elif player.position == "DEF" %}
+                                            <div class="nfl_player_photo nfl_team_photo"
+                                                 style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.player_id|lower }}.png'); background-position: center;">
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="player_name">{{ player.full_name }}</td>
+                                    <td class="player_points">{{ player.points }}</td>
+                                    <td class="player_pos">{{ player.position }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
 
             <div class="team_rosters flex_row" style="display: none">
@@ -136,6 +190,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     {% endfor %}
 </div>
@@ -163,26 +218,67 @@
     });
 
     $(document).ready(function () {
-        $(".headers").click(function () {
-            var $matchup = $(this).closest(".weekly_matchup");
-            var $teamRosters = $matchup.find(".team_rosters");
-            var $team1Header = $matchup.find(".team1_header");
-            var $team2Header = $matchup.find(".team2_header");
-            let expanded = $teamRosters.is(":visible");
+        // Define the media query
+        var mediaQuery = window.matchMedia("(max-width: 700px)");
 
-            if (!expanded) {
-                $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
-                $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-            }
-            $teamRosters.slideToggle(300, function () {
-                expanded = $teamRosters.is(":visible");
-                if (!expanded) {
-                    $team1Header.removeClass('team1_header_toggle_on').addClass('team1_header_toggle_off');
-                    $team2Header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
-                }
+        // Function to handle the header click
+        function handleHeaderClick() {
+            $(".headers").click(function () {
+                var $matchup = $(this).closest(".weekly_matchup");
+                var $teamRosters = $matchup.find(".team_rosters");
+                var $team1Header = $matchup.find(".team1_header");
+                var $team2Header = $matchup.find(".team2_header");
+
+                $teamRosters.slideToggle(300, function () {
+                    let expanded = $teamRosters.is(":visible");
+                    if (expanded) {
+                        $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
+                        $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
+                    } else {
+                        $team1Header.removeClass('team1_header_toggle_on').addClass('team1_header_toggle_off');
+                        $team2Header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
+                    }
+                });
             });
-        });
+        }
+
+        if (!mediaQuery.matches) {
+            handleHeaderClick();
+        }
+
     });
+
+$(document).ready(function () {
+    $(".team1_header").click(function () {
+        var $teamMatchup = $(this).closest(".weekly_matchup");
+        var $team1Rosters = $teamMatchup.find(".team_1_rosters_mobile");
+
+        // Check if the media query is active
+        if (window.matchMedia("(max-width: 700px)").matches) {
+            $team1Rosters.slideToggle(300);
+        }
+    });
+
+    $(".team2_header").click(function () {
+        var $teamMatchup = $(this).closest(".weekly_matchup");
+        var $team2Rosters = $teamMatchup.find(".team_2_rosters_mobile");
+
+        // Check if the media query is active
+        if (window.matchMedia("(max-width: 700px)").matches) {
+            // Toggle roster visibility
+            $team2Rosters.slideToggle(300);
+
+            // Toggle border radius classes
+            $(this).toggleClass("expanded");
+        }
+    });
+});
+
+
+
+
+
+
 
 
 </script>

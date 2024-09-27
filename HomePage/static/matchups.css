@@ -169,19 +169,40 @@
 }
 
 .winner {
-    background-color: #6abf69; /* Darker green */
-    color: white; /* For better contrast */
+    background-color: #6abf69;
+    color: white;
 }
 
 .loser {
-    background-color: #e57373; /* Darker red */
-    color: white; /* For better contrast */
+    background-color: #e57373;
+    color: white;
+}
+
+.team_1_rosters_mobile, .team_2_rosters_mobile {
+    background-color: rgb(13, 64, 64);
+}
+
+.team_1_rosters_mobile {
+    width: 100%;
+}
+
+.team1_roster_mobile {
+    width: 100%;
+}
+
+.team_2_rosters_mobile {
+    width: 100%;
+}
+
+.team2_roster_mobile {
+    width: 100%;
 }
 
 @media (max-width: 700px) {
 
     .headers {
         height: auto;
+        background-color: rgb(13, 64, 64);
     }
 
     .team1_header, .team2_header {
@@ -194,18 +215,25 @@
     .team2_header .photo_container {
         margin: 0 0 0 8px
     }
+
     .team1_header {
-        border-radius: 20px 20px 0 0 !important; /* Use !important to enforce */
-    }
-    .team2_header {
-        border-radius: 0 0 20px 20px !important; /* Use !important to enforce */
+        border-radius: 20px 20px 0 0 !important;
     }
 
-    /* Add toggle class handling inside the media query to respect mobile styles */
-    .team1_header_toggle_on {
-        border-radius: 20px 20px 0 0 !important; /* Maintain border-radius on toggle */
+    .team2_header {
+        border-radius: 0 0 20px 20px !important;
     }
+
+    .team1_header_toggle_on {
+        border-radius: 20px 20px 0 0 !important;
+    }
+
     .team2_header_toggle_on {
-        border-radius: 0 0 0 0 !important; /* Maintain border-radius on toggle */
+        border-radius: 0 0 0 0;
+    }
+
+
+    .team2_header_toggle_off {
+        border-radius: 0 0 20px 20px;
     }
 }

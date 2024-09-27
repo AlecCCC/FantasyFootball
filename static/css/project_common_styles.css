@@ -10,7 +10,7 @@ body {
 }
 
 .header {
-    height: 250px;
+    height: auto;
     background-color: aqua;
     display: flex;
     flex-direction: column;

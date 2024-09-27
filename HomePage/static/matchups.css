@@ -217,15 +217,15 @@
     }
 
     .team1_header {
-        border-radius: 20px 20px 0 0 !important;
+        border-radius: 20px 20px 0 0
     }
 
     .team2_header {
-        border-radius: 0 0 20px 20px !important;
+        border-radius: 0 0 20px 20px
     }
 
     .team1_header_toggle_on {
-        border-radius: 20px 20px 0 0 !important;
+        border-radius: 20px 20px 0 0;
     }
 
     .team2_header_toggle_on {
@@ -234,6 +234,6 @@
 
 
     .team2_header_toggle_off {
-        border-radius: 0 0 20px 20px;
+        border-radius: 0 0 20px 20px !important;
     }
 }

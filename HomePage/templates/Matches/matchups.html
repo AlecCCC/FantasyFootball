@@ -248,37 +248,40 @@
 
     });
 
-$(document).ready(function () {
-    $(".team1_header").click(function () {
-        var $teamMatchup = $(this).closest(".weekly_matchup");
-        var $team1Rosters = $teamMatchup.find(".team_1_rosters_mobile");
+    $(document).ready(function () {
+        $(".team1_header").click(function () {
+            var $teamMatchup = $(this).closest(".weekly_matchup");
+            var $team1Rosters = $teamMatchup.find(".team_1_rosters_mobile");
+            if (window.matchMedia("(max-width: 700px)").matches) {
+                $team1Rosters.slideToggle(300);
+            }
+        });
 
-        // Check if the media query is active
-        if (window.matchMedia("(max-width: 700px)").matches) {
-            $team1Rosters.slideToggle(300);
-        }
+        $(".team2_header").click(function () {
+            var $teamMatchup = $(this).closest(".weekly_matchup");
+            var $team2Rosters = $teamMatchup.find(".team_2_rosters_mobile");
+            var $header = $(this);
+
+            if (window.matchMedia("(max-width: 700px)").matches) {
+                if ($header.hasClass('team2_header_toggle_on')) {
+                    // Add 'toggle_on' class immediately
+                    $header.addClass('team2_header_toggle_on');
+                    // Slide toggle and add 'toggle_off' class after animation
+                    $team2Rosters.slideToggle(300, function () {
+                        $header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
+                    });
+                } else {
+                    // Add 'toggle_on' class immediately
+                    $header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
+                    // Slide toggle
+                    $team2Rosters.slideToggle(300);
+                }
+
+                // Toggle border radius classes
+                $header.toggleClass("expanded");
+            }
+        });
     });
-
-    $(".team2_header").click(function () {
-        var $teamMatchup = $(this).closest(".weekly_matchup");
-        var $team2Rosters = $teamMatchup.find(".team_2_rosters_mobile");
-
-        // Check if the media query is active
-        if (window.matchMedia("(max-width: 700px)").matches) {
-            // Toggle roster visibility
-            $team2Rosters.slideToggle(300);
-
-            // Toggle border radius classes
-            $(this).toggleClass("expanded");
-        }
-    });
-});
-
-
-
-
-
-
 
 
 </script>

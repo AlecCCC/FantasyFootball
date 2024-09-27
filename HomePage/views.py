@@ -43,6 +43,9 @@ with open('nfl_players_cache.json', 'r') as f:
 
 
 def matchups(request, league_id, current_week):
+    league_info = get_league_info(league_id)
+    league_name = league_info['league_name']
+    league_avatar = league_info['league_avatar']
     data = get_nfl_state()
     fetched_week = data.get('week')  # Use a different variable name to store the fetched week
     rosters = get_rosters_in_league(league_id)
@@ -87,6 +90,8 @@ def matchups(request, league_id, current_week):
 
     weekly_matchups = create_team_matchup_dicts(weekly_matchups)
     context = {
+        'league_name':league_name,
+        'league_avatar':league_avatar,
         'league_id': league_id,
         'rosters': rosters,
         'weekly_matchups': weekly_matchups,

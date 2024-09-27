@@ -1,0 +1,211 @@
+.carousel-navigation {
+    display: flex;
+    width: 95%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.carousel-navigation a {
+    text-decoration: none;
+    color: white;
+}
+
+.carousel-navigation h3 {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.weekly_matchup {
+    max-width: 600px;
+    margin: 24px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 5px black;
+    border-radius: 20px
+}
+
+
+.headers {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: rgb(63, 110, 110);
+    /*border-radius: 20px 20px 0 0;*/
+    border-radius: 20px;
+    height: 90px;
+
+}
+
+.team1_header {
+    /*border-radius: 20px 0 0 0;*/
+    border-radius: 20px 0 0 20px;
+}
+
+.team2_header {
+    /*border-radius: 0 20px 0 0;*/
+    border-radius: 0 20px 20px 0;
+
+
+}
+
+/*class to add/remove bottom borders for header*/
+
+.team1_header_toggle_on {
+    border-radius: 20px 0 0 0;
+}
+
+.team1_header_toggle_off {
+    border-radius: 20px 0 0 20px;
+
+}
+
+.team2_header_toggle_on {
+    border-radius: 0 20px 0 0;
+}
+
+.team2_header_toggle_off {
+    border-radius: 0 20px 20px 0;
+
+}
+
+
+.team1_header, .team2_header {
+    width: 50%;
+    box-sizing: border-box;
+}
+
+
+.photo_container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.team1_header, .team2_header {
+    display: flex;
+    align-items: center;
+}
+
+.team2_header {
+    flex-direction: row-reverse;
+}
+
+.team_rosters {
+    width: 600px;
+    justify-content: space-between;
+    background-color: rgb(13, 64, 64);
+    border-radius: 0 0 20px 20px;
+
+}
+
+.player_name {
+    text-align: center;
+    color: white;
+}
+
+.team1_roster {
+    width: 50%
+}
+
+.team2_roster {
+    width: 50%
+}
+
+.player_photo {
+    flex-shrink: 0;
+}
+
+.team_name {
+    flex-grow: 1;
+    word-wrap: break-word;
+}
+
+.player_points {
+    text-align: left;
+}
+
+
+.player_photo {
+    min-width: 60px;
+    min-height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: #ffffff 2px solid;
+    background-color: rgb(39, 69, 69);
+}
+
+.team_name {
+    padding: 8px;
+    text-align: center;
+    color: white;
+}
+
+.total_points {
+    text-align: center;
+    padding: 8px;
+}
+
+.nfl_player_photo {
+    margin: 5px 0 5px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 64px;
+    width: 64px;
+
+}
+
+.nfl_team_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 54px;
+    width: 54px;
+
+}
+
+.winner {
+    background-color: #6abf69; /* Darker green */
+    color: white; /* For better contrast */
+}
+
+.loser {
+    background-color: #e57373; /* Darker red */
+    color: white; /* For better contrast */
+}
+
+@media (max-width: 700px) {
+
+    .headers {
+        height: auto;
+    }
+
+    .team1_header, .team2_header {
+        width: 100%;
+        justify-content: flex-start;
+        flex-direction: row;
+        height: auto;
+    }
+
+    .team2_header .photo_container {
+        margin: 0 0 0 8px
+    }
+    .team1_header {
+        border-radius: 20px 20px 0 0 !important; /* Use !important to enforce */
+    }
+    .team2_header {
+        border-radius: 0 0 20px 20px !important; /* Use !important to enforce */
+    }
+
+    /* Add toggle class handling inside the media query to respect mobile styles */
+    .team1_header_toggle_on {
+        border-radius: 20px 20px 0 0 !important; /* Maintain border-radius on toggle */
+    }
+    .team2_header_toggle_on {
+        border-radius: 0 0 0 0 !important; /* Maintain border-radius on toggle */
+    }
+}

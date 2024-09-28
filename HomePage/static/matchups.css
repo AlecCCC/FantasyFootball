@@ -34,16 +34,28 @@
     border-radius: 20px
 }
 
+.team1_header, .team2_header {
+    background-color: rgb(63, 110, 110);
+    padding: 10px;
+}
+
 
 .headers {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     background-color: rgb(63, 110, 110);
-    /*border-radius: 20px 20px 0 0;*/
     border-radius: 20px;
     height: 90px;
 
+}
+
+.headers_toggle_on {
+    border-radius: 20px 20px 0 0;
+}
+
+.headers_toggle_off {
+    border-radius: 20px;
 }
 
 .team1_header {
@@ -209,13 +221,23 @@
 
 @media (max-width: 700px) {
 
+    .team_2_rosters_mobile {
+        border-radius: 0 0 20px 20px;
+    }
+
+
     .wrapper {
         margin: 0 16px 0 16px;
     }
 
     .headers {
         height: auto;
-        background-color: rgb(63, 110, 110);
+        background-color: rgb(13, 64, 64);
+
+    }
+
+    .team_rosters {
+        display: none !important;
     }
 
     .team1_header, .team2_header {

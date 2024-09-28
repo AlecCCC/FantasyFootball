@@ -18,27 +18,21 @@
     color: #3498db; /* This sets the color of the SVG */
 }
 
-
 .carousel-navigation h3 {
     flex-grow: 1;
     text-align: center;
 }
 
 .weekly_matchup {
-    max-width: 600px;
     margin: 24px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0 0 5px black;
-    border-radius: 20px
+    border-radius: 20px;
+    width: 100%; /* Ensure the matchup takes full width */
+    max-width: 600px; /* Set a max width for consistent size */
 }
-
-.team1_header, .team2_header {
-    background-color: rgb(63, 110, 110);
-    padding: 10px;
-}
-
 
 .headers {
     display: flex;
@@ -47,30 +41,15 @@
     background-color: rgb(63, 110, 110);
     border-radius: 20px;
     height: 90px;
-
-}
-
-.headers_toggle_on {
-    border-radius: 20px 20px 0 0;
-}
-
-.headers_toggle_off {
-    border-radius: 20px;
 }
 
 .team1_header {
-    /*border-radius: 20px 0 0 0;*/
     border-radius: 20px 0 0 20px;
 }
 
 .team2_header {
-    /*border-radius: 0 20px 0 0;*/
     border-radius: 0 20px 20px 0;
-
-
 }
-
-/*class to add/remove bottom borders for header*/
 
 .team1_header_toggle_on {
     border-radius: 20px 0 0 0;
@@ -78,7 +57,6 @@
 
 .team1_header_toggle_off {
     border-radius: 20px 0 0 20px;
-
 }
 
 .team2_header_toggle_on {
@@ -87,24 +65,19 @@
 
 .team2_header_toggle_off {
     border-radius: 0 20px 20px 0;
-
 }
-
 
 .team1_header, .team2_header {
     width: 50%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
-
 
 .photo_container {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-}
-
-.team1_header, .team2_header {
-    display: flex;
     align-items: center;
 }
 
@@ -113,11 +86,10 @@
 }
 
 .team_rosters {
-    width: 600px;
+    width: 100%; /* Full width for consistency */
     justify-content: space-between;
     background-color: rgb(13, 64, 64);
     border-radius: 0 0 20px 20px;
-
 }
 
 .player_name {
@@ -125,29 +97,12 @@
     color: white;
 }
 
-.team1_roster {
-    width: 50%
-}
-
-.team2_roster {
-    width: 50%
+.team1_roster, .team2_roster {
+    width: 50%;
 }
 
 .player_photo {
     flex-shrink: 0;
-}
-
-.team_name {
-    flex-grow: 1;
-    word-wrap: break-word;
-}
-
-.player_points {
-    text-align: left;
-}
-
-
-.player_photo {
     min-width: 60px;
     min-height: 60px;
     background-size: contain;
@@ -164,6 +119,7 @@
     padding: 8px;
     text-align: center;
     color: white;
+    flex-grow: 1;
 }
 
 .total_points {
@@ -172,13 +128,12 @@
 }
 
 .nfl_player_photo {
-    margin: 5px 0 5px 0;
+    margin: 5px 0;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     height: 64px;
     width: 64px;
-
 }
 
 .nfl_team_photo {
@@ -186,7 +141,10 @@
     background-repeat: no-repeat;
     height: 54px;
     width: 54px;
+}
 
+.player_points {
+    text-align: left;
 }
 
 .winner {
@@ -201,30 +159,23 @@
 
 .team_1_rosters_mobile, .team_2_rosters_mobile {
     background-color: rgb(13, 64, 64);
-}
-
-.team_1_rosters_mobile {
     width: 100%;
 }
 
-.team1_roster_mobile {
+.team1_roster_mobile, .team2_roster_mobile {
     width: 100%;
 }
 
-.team_2_rosters_mobile {
-    width: 100%;
+.header_toggle_on {
+    border-radius: 20px 20px 0 0;
 }
 
-.team2_roster_mobile {
-    width: 100%;
+.header_toggle_off {
+    border-radius: 20px;
 }
+
 
 @media (max-width: 700px) {
-
-    .team_2_rosters_mobile {
-        border-radius: 0 0 20px 20px;
-    }
-
 
     .wrapper {
         margin: 0 16px 0 16px;
@@ -232,8 +183,7 @@
 
     .headers {
         height: auto;
-        background-color: rgb(13, 64, 64);
-
+        background-color: rgb(63, 110, 110);
     }
 
     .team_rosters {
@@ -272,3 +222,4 @@
         border-radius: 0 0 20px 20px !important;
     }
 }
+

@@ -23,12 +23,12 @@
 
     <div class="carousel-navigation">
         {% if current_week > 1 %}
-            <a href="{% url 'matchups' league_id previous_week %}" class="carousel-button">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="arrow-icon">
-                    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
-                          fill="currentColor"/>
-                </svg>
-            </a>
+        <a href="{% url 'matchups' league_id previous_week %}" class="carousel-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="arrow-icon">
+                <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                      fill="currentColor"/>
+            </svg>
+        </a>
         {% endif %}
         <h3>Week {{ current_week }} Matchups</h3>
         {% if  current_week < 18 %}
@@ -41,8 +41,8 @@
         {% endif %}
 
     </div>
-
-    {% for matchup in weekly_matchups %}
+    <div class="matchups flex_column">
+            {% for matchup in weekly_matchups %}
         <div class="weekly_matchup margin_top_24px">
             <div class="headers flex_row justify_content_space_between">
                 <!-- Team 1 Header -->
@@ -208,6 +208,8 @@
 
         </div>
     {% endfor %}
+    </div>
+
 </div>
 {#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#}
 
@@ -239,27 +241,24 @@
             $(".headers").click(function () {
                 var $matchup = $(this).closest(".weekly_matchup");
                 var $teamRosters = $matchup.find(".team_rosters");
-                var $headers = $matchup.find(".headers")
                 var $team1Header = $matchup.find(".team1_header");
                 var $team2Header = $matchup.find(".team2_header");
+                var $headers = $matchup.find(".headers");
 
                 if (!$teamRosters.is(":visible")) {
                     $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
                     $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-                    $headers.removeClass('headers_toggle_off').addClass('headers_toggle_on')
+                    $headers.removeClass('header_toggle_off').addClass('header_toggle_on');
                 }
                 $teamRosters.slideToggle(300, function () {
                     if ($teamRosters.is(":visible")) {
                         $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
                         $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-                        $headers.removeClass('headers_toggle_off').addClass('headers_toggle_on')
-
+                        $headers.removeClass('header_toggle_off').addClass('header_toggle_on');
                     } else {
                         $team1Header.removeClass('team1_header_toggle_on').addClass('team1_header_toggle_off');
                         $team2Header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
-                        $headers.removeClass('headers_toggle_on').addClass('headers_toggle_off');
-
-
+                        $headers.removeClass('header_toggle_on').addClass('header_toggle_off');
                     }
                 });
             });

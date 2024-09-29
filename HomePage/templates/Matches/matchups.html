@@ -276,35 +276,35 @@ $(document).ready(function () {
 
 
 
-    $(document).ready(function () {
-        $('.team1_header').click(function () {
-            const team1Rosters = $(this).siblings('.team_1_rosters_mobile');
-            const team2Rosters = $(this).parent().siblings().find('.team_2_rosters_mobile');
+$(document).ready(function () {
+    $('.team1_header').click(function () {
+        const team1Rosters = $(this).siblings('.team_1_rosters_mobile');
+        const team2Rosters = $(this).parent().siblings().find('.team_2_rosters_mobile');
 
-            team2Rosters.slideUp();
-            team1Rosters.slideToggle();
-        });
-
-        $('.team2_header').click(function () {
-            const team2Rosters = $(this).siblings('.team_2_rosters_mobile');
-            const team1Rosters = $(this).parent().siblings().find('.team_1_rosters_mobile');
-
-            team1Rosters.slideUp();
-            if (team2Rosters.is(':visible')) {
-
-                team2Rosters.slideUp(() => {
-                    $(this).removeClass('team2_header_mobile_on');
-                    $(this).addClass('team2_header_mobile_off')
-                });
-            } else {
-                $(this).addClass('team2_header_mobile_on');
-                $(this).removeClass('team2_header_mobile_off')
-
-
-                team2Rosters.slideDown();
-            }
-        });
+        team2Rosters.slideUp();
+        team1Rosters.slideToggle();
     });
+
+    $('.team2_header').click(function () {
+        const team2Rosters = $(this).siblings('.team_2_rosters_mobile');
+        const team1Rosters = $(this).parent().siblings().find('.team_1_rosters_mobile');
+
+        team1Rosters.slideUp();
+        if (team2Rosters.is(':visible')) {
+
+            team2Rosters.slideUp(() => {
+                $(this).removeClass('team2_header_mobile_on');
+                $(this).addClass('team2_header_mobile_off')
+            });
+        } else {
+            $(this).addClass('team2_header_mobile_on');
+            $(this).removeClass('team2_header_mobile_off')
+
+
+            team2Rosters.slideDown();
+        }
+    });
+});
 
 
 </script>

@@ -24,6 +24,7 @@
 }
 
 .weekly_matchup {
+    height: auto;
     margin: 24px auto;
     display: flex;
     flex-direction: column;
@@ -61,6 +62,7 @@
 }
 
 .photo_container {
+    padding: 8px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -151,12 +153,18 @@
     width: 100%;
 }
 
-.header_toggle_on {
-    border-radius: 20px 20px 0 0;
+
+/*BORDER RADIUS CLASSES*/
+
+/*DESKTOP*/
+
+.team1_header_on {
+    border-radius: 20px 0 0 0;
 }
 
-.header_toggle_off {
-    border-radius: 20px;
+.team2_header_on {
+    border-radius: 0 20px 0 0;
+
 }
 
 
@@ -182,9 +190,6 @@
         height: auto;
     }
 
-    .team2_header .photo_container {
-        margin: 0 0 0 8px
-    }
 
     .team1_header {
         border-radius: 20px 20px 0 0
@@ -193,23 +198,13 @@
     .team2_header {
         border-radius: 0 0 20px 20px
     }
-
-    .team1_header_toggle_on {
-        border-radius: 20px 20px 0 0;
-    }
-
-    .team2_header_toggle_on {
-        border-radius: 0 0 0 0;
-    }
-
-
-    .team2_header_toggle_off {
-        border-radius: 0 0 20px 20px;
-    }
 }
 
 @media (min-width: 700px) {
-    .team_rosters.active {
+    .team_1_rosters_mobile, .team_2_rosters_mobile {
+        display: none !important;
     }
+
 }
+
 

@@ -51,21 +51,6 @@
     border-radius: 0 20px 20px 0;
 }
 
-.team1_header_toggle_on {
-    border-radius: 20px 0 0 0;
-}
-
-.team1_header_toggle_off {
-    border-radius: 20px 0 0 20px;
-}
-
-.team2_header_toggle_on {
-    border-radius: 0 20px 0 0;
-}
-
-.team2_header_toggle_off {
-    border-radius: 0 20px 20px 0;
-}
 
 .team1_header, .team2_header {
     width: 50%;
@@ -219,7 +204,12 @@
 
 
     .team2_header_toggle_off {
-        border-radius: 0 0 20px 20px !important;
+        border-radius: 0 0 20px 20px;
+    }
+}
+
+@media (min-width: 700px) {
+    .team_rosters.active {
     }
 }
 

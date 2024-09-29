@@ -233,79 +233,25 @@
         }
     });
 
-    $(document).ready(function () {
-        var mediaQuery = window.matchMedia("(max-width: 700px)");
-        var clickDelay = 500; // Delay in milliseconds
-        var isClickable = true; // Flag to manage click events
 
-        function handleHeaderClick() {
-            $(".headers").click(function () {
-                if (!isClickable) return; // Prevent further clicks during delay
-                isClickable = false; // Set flag to false
+$(document).ready(function() {
+    $('.headers').click(function() {
+        // Check if the media query for 700px or greater is active
+        if (window.matchMedia("(min-width: 700px)").matches) {
+            var roster = $('.team_rosters');
 
-                var $matchup = $(this).closest(".weekly_matchup");
-                var $teamRosters = $matchup.find(".team_rosters");
-                var $team1Header = $matchup.find(".team1_header");
-                var $team2Header = $matchup.find(".team2_header");
-                var $headers = $matchup.find(".headers");
-
-                if (!$teamRosters.is(":visible")) {
-                    $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
-                    $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-                    $headers.removeClass('header_toggle_off').addClass('header_toggle_on');
-                }
-                $teamRosters.slideToggle(300, function () {
-                    if ($teamRosters.is(":visible")) {
-                        $team1Header.removeClass('team1_header_toggle_off').addClass('team1_header_toggle_on');
-                        $team2Header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-                        $headers.removeClass('header_toggle_off').addClass('header_toggle_on');
-                    } else {
-                        $team1Header.removeClass('team1_header_toggle_on').addClass('team1_header_toggle_off');
-                        $team2Header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
-                        $headers.removeClass('header_toggle_on').addClass('header_toggle_off');
-                    }
-
-                    // Re-enable clicking after the delay
-                    setTimeout(function () {
-                        isClickable = true; // Reset flag after delay
-                    }, clickDelay);
-                });
-            });
-        }
-
-        if (!mediaQuery.matches) {
-            handleHeaderClick();
-        }
-
-        // Team 1 header click event
-        $(".team1_header").click(function () {
-            var $teamMatchup = $(this).closest(".weekly_matchup");
-            var $team1Rosters = $teamMatchup.find(".team_1_rosters_mobile");
-
-            if (mediaQuery.matches) {
-                $team1Rosters.slideToggle(300);
+            // Toggle the roster visibility with animation
+            if (roster.hasClass('active')) {
+                roster.removeClass('active').slideUp();
+            } else {
+                roster.addClass('active').slideDown();
             }
-        });
-
-$(".team2_header").click(function () {
-    var $teamMatchup = $(this).closest(".weekly_matchup");
-    var $team2Rosters = $teamMatchup.find(".team_2_rosters_mobile");
-    var $header = $(this);
-
-    if (mediaQuery.matches) {
-        if ($header.hasClass('team2_header_toggle_on')) {
-            $team2Rosters.slideToggle(300, function() {
-                $header.removeClass('team2_header_toggle_on').addClass('team2_header_toggle_off');
-            });
-        } else {
-            $header.removeClass('team2_header_toggle_off').addClass('team2_header_toggle_on');
-            $team2Rosters.slideToggle(300);
         }
-    }
+    });
 });
 
 
-    });
+
 </script>
 
 

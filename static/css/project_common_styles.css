@@ -33,6 +33,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: rgba(0, 0, 0, .71);
     height: auto;
     width: 100%;
+    border-bottom: 2px solid black;
 }
 
 .links ul {

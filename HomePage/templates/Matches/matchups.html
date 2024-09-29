@@ -234,68 +234,80 @@
     });
 
 
+    $(document).ready(function () {
+        function toggleTeamRosters() {
+            if ($(window).width() >= 700) {
+                $('.headers').off('click').on('click', function () {
+                    const team1Header = $(this).find('.team1_header');
+                    const team2Header = $(this).find('.team2_header');
+                    const teamRosters = $(this).next('.team_rosters');
 
-$(document).ready(function () {
-    $('.headers').click(function () {
-        // Find the team1_header and team2_header within the clicked headers
-        const team1Header = $(this).find('.team1_header');
-        const team2Header = $(this).find('.team2_header');
+                    if (teamRosters.is(':visible')) {
+                        teamRosters.slideUp(300, function () {
+                            team1Header.removeClass('team1_header_on');
+                            team2Header.removeClass('team2_header_on');
+                        });
+                    } else {
+                        teamRosters.slideDown(300, function () {
+                            team1Header.addClass('team1_header_on');
+                            team2Header.addClass('team2_header_on');
+                        });
 
-        // Find the team_rosters div
-        const teamRosters = $(this).next('.team_rosters');
-
-        if (teamRosters.is(':visible')) {
-            // If the rosters are currently visible, slide them up
-            teamRosters.slideUp(300, function() {
-                // This function runs after the slideUp animation is complete
-                team1Header.removeClass('team1_header_on');
-                team2Header.removeClass('team2_header_on');
-            });
-        } else {
-            // If the rosters are currently hidden, slide them down
-            teamRosters.slideDown(300, function() {
-                // This function runs after the slideDown animation is complete
-                // Add classes immediately after the first click
-                team1Header.addClass('team1_header_on');
-                team2Header.addClass('team2_header_on');
-            });
-
-            // Also ensure to add the classes immediately on first click
-            team1Header.addClass('team1_header_on');
-            team2Header.addClass('team2_header_on');
+                        team1Header.addClass('team1_header_on');
+                        team2Header.addClass('team2_header_on');
+                    }
+                });
+            } else {
+                $('.headers').off('click'); // Remove click event if less than 700px
+            }
         }
-    });
-});
 
+        // Run on initial load
+        toggleTeamRosters();
 
-
-
-$(document).ready(function() {
-    $('.team1_header').click(function() {
-        const team1Rosters = $(this).siblings('.team_1_rosters_mobile');
-        const team2Rosters = $(this).parent().siblings().find('.team_2_rosters_mobile');
-        team2Rosters.slideUp();
-        // Slide toggle Team 1 rosters
-        team1Rosters.slideToggle();
+        // Run on window resize
+        $(window).resize(function () {
+            toggleTeamRosters();
+        });
     });
 
-    // Click event for Team 2 header
-    $('.team2_header').click(function() {
-        // Find the corresponding Team 2 rosters within the same context
-        const team2Rosters = $(this).siblings('.team_2_rosters_mobile');
-        const team1Rosters = $(this).parent().siblings().find('.team_1_rosters_mobile');
 
-        // Slide up Team 1 rosters
-        team1Rosters.slideUp();
-        // Slide toggle Team 2 rosters
-        team2Rosters.slideToggle();
+    $(document).ready(function () {
+        $('.team1_header').click(function () {
+            const team1Rosters = $(this).siblings('.team_1_rosters_mobile');
+            const team2Rosters = $(this).parent().siblings().find('.team_2_rosters_mobile');
+
+            // Slide up team 2 rosters when team 1 is clicked
+            team2Rosters.slideUp();
+
+            // Slide toggle Team 1 rosters
+            team1Rosters.slideToggle();
+        });
+
+        $('.team2_header').click(function () {
+            const team2Rosters = $(this).siblings('.team_2_rosters_mobile');
+            const team1Rosters = $(this).parent().siblings().find('.team_1_rosters_mobile');
+
+            // Slide up team 1 rosters when team 2 is clicked
+            team1Rosters.slideUp();
+
+            // Check if team 2 rosters are currently visible
+            if (team2Rosters.is(':visible')) {
+
+                team2Rosters.slideUp(() => {
+                    $(this).removeClass('team2_header_mobile_on');
+                    $(this).addClass('team2_header_mobile_off')
+                });
+            } else {
+                // Add the class and slide down team 2 rosters
+                $(this).addClass('team2_header_mobile_on');
+                $(this).removeClass('team2_header_mobile_off')
+
+
+                team2Rosters.slideDown();
+            }
+        });
     });
-});
-
-
-
-
-
 
 
 </script>

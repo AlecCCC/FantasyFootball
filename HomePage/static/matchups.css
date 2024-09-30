@@ -153,6 +153,10 @@
     width: 100%;
 }
 
+.team_2_rosters_mobile {
+    border-radius: 0 0 20px 20px;
+}
+
 /*BORDER RADIUS CLASSES*/
 
 .headers_on {
@@ -183,7 +187,7 @@
 
     .headers {
         height: auto;
-        background-color: rgb(63, 110, 110);
+        /*background-color: rgb(63, 110, 110);*/
     }
 
     .team_rosters {

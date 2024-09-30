@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import requests
 from django.shortcuts import render
 
@@ -8,6 +10,7 @@ from django.shortcuts import render
 def splash_view(request):
     username = ''
     user_id = ''
+    current_year = datetime.now().year
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -16,7 +19,7 @@ def splash_view(request):
         if user_response.status_code == 200:
             user_data = user_response.json()
             user_id = user_data.get('user_id')
-            leagues_response = requests.get(f'https://api.sleeper.app/v1/user/{user_id}/leagues/nfl/2024')
+            leagues_response = requests.get(f'https://api.sleeper.app/v1/user/{user_id}/leagues/nfl/{current_year}')
 
             if leagues_response.status_code == 200:
                 leagues_data = leagues_response.json()

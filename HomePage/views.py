@@ -103,3 +103,27 @@ def matchups(request, league_id, current_week):
     }
 
     return render(request, "Matches/matchups.html", context)
+
+
+def standings(request, league_id):
+    rosters = get_rosters_in_league(league_id)
+    user_list = get_users_in_league(league_id)
+    roster_dict = {roster['owner_id']: roster for roster in rosters}
+
+    for user in user_list:
+        owner_id = user['user_id']
+        if owner_id in roster_dict:
+            user['wins'] = roster_dict[owner_id]['wins']
+            user['losses'] = roster_dict[owner_id]['losses']
+            user['ties'] = roster_dict[owner_id]['ties']
+
+    data = get_nfl_state()
+    current_week = data.get('week')
+
+    context = {
+        'user_list': user_list,
+        'rosters': rosters,
+        'league_id': league_id,
+        'current_week': current_week,
+    }
+    return render(request, 'standings.html', context)

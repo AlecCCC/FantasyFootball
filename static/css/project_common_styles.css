@@ -10,7 +10,7 @@ body {
 }
 
 .header {
-    height: 250px;
+    height: auto;
     background-color: aqua;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@ body {
 }
 
 .header {
-    background-image: url('../images/vecteezy_superbowl-stadium-in-night-background_20324267.jpg');
+    background-image: url('/static/images/vecteezy_superbowl-stadium-in-night-background_20324267.jpg');
     background-repeat: no-repeat;
     background-size: inherit;
     background-position: center -420px;
@@ -33,6 +33,7 @@ h1, h2, h3, h4, h5, h6 {
     background-color: rgba(0, 0, 0, .71);
     height: auto;
     width: 100%;
+    border-bottom: 2px solid black;
 }
 
 .links ul {
@@ -59,16 +60,12 @@ h1, h2, h3, h4, h5, h6 {
 
 #fantasy_logo {
     background-color: aqua;
-    background-image: url("../images/congress_2024.webp");
+    /*background-image: url("static/images/fantasy_football_congress_logo.jpg");*/
     background-size: contain;
     height: 140px;
     width: 140px;
     border: #ffffff 2px solid;
     border-radius: 50%;
-}
-
-.photo_container {
-    padding: 8px;
 }
 
 .league_name {
@@ -81,112 +78,6 @@ h1, h2, h3, h4, h5, h6 {
     text-shadow: 1px 1px 20px white;
     text-align: center;
 }
-
-
-.card_container {
-    padding-top: 20px;
-    width: 90%;
-    margin: 0 auto;
-    /*background-color: beige;*/
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-
-.user_card {
-    border-radius: 20px 20px 30px 30px;
-    border: 1px solid black;
-    width: 450px;
-    height: auto;
-    margin: 20px;
-    box-shadow: 0px 0px 5px black;
-    overflow: hidden;
-    background-color: rgb(13, 64, 64);
-}
-
-.player_container {
-    background-color: rgb(13, 64, 64);
-    height: 100%;
-    padding: 10px 0 10px 0;
-    border-radius: 0px 0px 30px 30px;
-
-}
-
-.team_name {
-    padding: 8px;
-    text-align: center;
-    color: white;
-}
-
-.card_header {
-    border-radius: 20px 20px 0 0;
-    border-bottom: 1px solid black;
-    background-color: rgb(63, 110, 110);
-}
-
-
-/*.player_row {*/
-/*    border-bottom: 1px solid black;*/
-/*}*/
-
-.player_photo {
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    border: #ffffff 2px solid;
-    background-color: rgb(39, 69, 69);
-
-}
-
-.player_row {
-    height: auto;
-    border-bottom: 1px solid rgb(81, 80, 80);
-}
-
-.player_row:nth-last-child(1) {
-    border-bottom: none;
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
-.nfl_player_photo {
-    margin: 5px 0 5px 0;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 64px;
-    width: 64px;
-
-}
-
-.nfl_team_photo {
-    background-size: contain;
-    background-repeat: no-repeat;
-    height: 54px;
-    width: 54px;
-
-}
-
-.player_name {
-    text-align: center;
-    color: white;
-}
-
-/*.injured_player {*/
-/*    color: black;*/
-/*}*/
-
-
-.player_pos {
-    text-align: center;
-}
-
-.player_table {
-    width: 100%;
-}
-
 
 .flex_row {
     display: flex;
@@ -511,20 +402,11 @@ h1, h2, h3, h4, h5, h6 {
     text-align: left;
 }
 
-.player_points{
+.player_points {
     color: white;
     text-align: center;
 }
 
-.card_header.winner {
-    background-color: #6abf69; /* Darker green */
-    color: white; /* For better contrast */
-}
-
-.card_header.loser {
-    background-color: #e57373; /* Darker red */
-    color: white; /* For better contrast */
-}
 
 .position_QB {
     color: rgb(252, 43, 109);
@@ -553,3 +435,80 @@ h1, h2, h3, h4, h5, h6 {
 .no_position {
     color: white;
 }
+
+
+
+/*Matchups HTML*/
+.matchup {
+    margin-bottom: 50px;
+    box-shadow: 0 0 5px black;
+    border-radius: 20px
+}
+
+#team1-header {
+    border-radius: 20px 0 0 0;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+}
+
+#team2-header {
+    border-radius: 0 20px 0 0;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+
+}
+
+.team1_container {
+    border-radius: 0 0 0 20px
+}
+
+.team2_container {
+    border-radius: 0 0 20px 0
+}
+
+
+.team.team-1.user_card {
+    margin: 0;
+    border: none;
+    border-radius: 0 0 0 20px;
+    box-shadow: none;
+}
+
+.team.team-2.user_card {
+    margin: 0;
+    border: none;
+    border-radius: 0 0 20px 0;
+    box-shadow: none;
+}
+
+
+.team.team-1.user_card {
+    border-left: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.team.team-2.user_card {
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.player_table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border-bottom: 1px solid black;
+    border-spacing: 0;
+
+}
+
+.player_table tr:last-child {
+    border-bottom: none;
+}
+
+.player_table tr.player_row:last-of-type td {
+    border-bottom: none; /* Remove bottom border from the last player_row */
+}
+
+

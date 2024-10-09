@@ -15,6 +15,8 @@ from .utils import (
 def index(request, league_id):
     nfl_data = get_api_data('https://api.sleeper.app/v1/players/nfl/', 'nfl_players_cache.json')
     print(f"Total players loaded: {len(nfl_data)}")
+    data = get_nfl_state()
+    current_week = data.get('week')
     league_info = get_league_info(league_id)
     league_name = league_info['league_name']
     league_avatar = league_info['league_avatar']
@@ -29,7 +31,8 @@ def index(request, league_id):
         'user_list': user_list,
         'league_name': league_name,
         'league_avatar': league_avatar,
-        'league_id': league_id  # Pass league_id to the template
+        'league_id': league_id,
+        'current_week': current_week
     }
     return render(request, 'HomePage/index.html', context)
 
@@ -39,12 +42,16 @@ with open('nfl_players_cache.json', 'r') as f:
     player_info = json.load(f)
 
 
-def matchups(request, league_id):
+def matchups(request, league_id, current_week):
+    league_info = get_league_info(league_id)
+    league_name = league_info['league_name']
+    league_avatar = league_info['league_avatar']
     data = get_nfl_state()
-    week = data.get('week')
+    fetched_week = data.get('week')  # Use a different variable name to store the fetched week
     rosters = get_rosters_in_league(league_id)
     user_list = get_users_in_league(league_id)
-    weekly_matchups = get_weekly_matchups(league_id, 3)
+    weekly_matchups = get_weekly_matchups(league_id, current_week)
+    print(f"Current week: {fetched_week}")
 
     # Add player details to matchups
     for matchup in weekly_matchups:
@@ -58,17 +65,20 @@ def matchups(request, league_id):
                     'player_id': player_id,
                     'full_name': full_name,
                     'position': position,
-                    'points': matchup['players_points'].get(player_id, 0.0)  # Include player points if available
+                    'points': matchup['players_points'].get(player_id, 0.0)
                 }
-    #
+    previous_week = max(1, current_week - 1)  # Ensure week doesn't go below 1
+    next_week = current_week + 1  # Assuming no upper limit for weeks
+
+
+    # Populate rosters with user info
     for roster in rosters:
         matching_user = next((user for user in user_list if user['user_id'] == roster['owner_id']), None)
-        # If a match is found, update the roster with team_name and avatar
         if matching_user:
             roster['team_name'] = matching_user['team_name']
             roster['avatar'] = matching_user['avatar']
 
-    # Grab a rosters, wins, ties, losses, team_name, and avatar_id to put in weekly matchups.
+    # Add wins, ties, losses to matchups
     for matchup in weekly_matchups:
         matching_roster = next((roster for roster in rosters if roster['roster_id'] == matchup['roster_id']), None)
         if matching_roster:
@@ -80,10 +90,40 @@ def matchups(request, league_id):
 
     weekly_matchups = create_team_matchup_dicts(weekly_matchups)
     context = {
+        'league_name':league_name,
+        'league_avatar':league_avatar,
         'league_id': league_id,
-        'rosters':rosters,
+        'rosters': rosters,
         'weekly_matchups': weekly_matchups,
-        'user_list': user_list
+        'user_list': user_list,
+        'fetched_week': fetched_week,
+        'current_week': current_week,
+        'previous_week': previous_week,
+        'next_week': next_week,
     }
 
     return render(request, "Matches/matchups.html", context)
+
+
+def standings(request, league_id):
+    rosters = get_rosters_in_league(league_id)
+    user_list = get_users_in_league(league_id)
+    roster_dict = {roster['owner_id']: roster for roster in rosters}
+
+    for user in user_list:
+        owner_id = user['user_id']
+        if owner_id in roster_dict:
+            user['wins'] = roster_dict[owner_id]['wins']
+            user['losses'] = roster_dict[owner_id]['losses']
+            user['ties'] = roster_dict[owner_id]['ties']
+
+    data = get_nfl_state()
+    current_week = data.get('week')
+
+    context = {
+        'user_list': user_list,
+        'rosters': rosters,
+        'league_id': league_id,
+        'current_week': current_week,
+    }
+    return render(request, 'standings.html', context)

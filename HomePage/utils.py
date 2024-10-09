@@ -205,3 +205,36 @@ def create_team_matchup_dicts(weekly_matchups):
 
     # Return the result containing the processed matchups
     return result
+
+def fetch_weekly_matchups_data(league_id, current_week):
+    league_info = get_league_info(league_id)
+    league_name = league_info['league_name']
+    league_avatar = league_info['league_avatar']
+    rosters = get_rosters_in_league(league_id)
+    user_list = get_users_in_league(league_id)
+    weekly_matchups = get_weekly_matchups(league_id, current_week)
+
+    # Populate rosters with user info
+    for roster in rosters:
+        matching_user = next((user for user in user_list if user['user_id'] == roster['owner_id']), None)
+        if matching_user:
+            roster['team_name'] = matching_user['team_name']
+            roster['avatar'] = matching_user['avatar']
+
+    # Add wins, ties, losses to matchups
+    for matchup in weekly_matchups:
+        matching_roster = next((roster for roster in rosters if roster['roster_id'] == matchup['roster_id']), None)
+        if matching_roster:
+            matchup['wins'] = matching_roster['wins']
+            matchup['ties'] = matching_roster['ties']
+            matchup['losses'] = matching_roster['losses']
+            matchup['team_name'] = matching_roster['team_name']
+            matchup['avatar'] = matching_roster['avatar']
+
+    return {
+        'league_name': league_name,
+        'league_avatar': league_avatar,
+        'rosters': rosters,
+        'weekly_matchups': weekly_matchups,
+        'user_list': user_list,
+    }

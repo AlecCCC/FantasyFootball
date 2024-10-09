@@ -1,6 +1,7 @@
 {% load static %}
 {% include 'header.html' %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/project_common_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'matchups.css' %}">
 
 <html>
 <head>
@@ -16,41 +17,62 @@
     </script>
 </head>
 <body>
-{#{{ user_list }}#}
-{#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#}
-{#{{ test_macthup }}#}
-{#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#}
-{##}
-{#{{ weekly_matchups }}#}
 
-<div class="wrapper">
-    <div class="card_container flex_row">
-        {% if weekly_matchups|length > 0 %}
-            {% for matchup in weekly_matchups %}
-                <div class="matchup flex_row" data-team1-points="{{ matchup.teams.0.points }}"
-                     data-team2-points="{{ matchup.teams.1.points }}">
-                    <!-- Team 1 Info -->
-                    <div class="team team-1 user_card flex_column">
-                        <div class="card_header flex_row align_items_center justify_content_space_evenly"
-                             id="team1-header">
-                            <div class="photo_container flex_row align_items_center justify_content_space_around">
-                                <div class="player_photo"
-                                        {% if matchup.teams.0.avatar %}
-                                     style="background-image: url('https://sleepercdn.com/avatars/{{ matchup.teams.0.avatar }}');"
-                                        {% else %}
-                                     style="background-image: url('{% static 'images/default_picture.jfif' %}');"
-                                        {% endif %}>
-                                </div>
-                                <div class="team_name">
-                                    <h4>{{ matchup.teams.0.team_name }}</h4>
-                                </div>
-                            </div>
-                            <div class="total_points">
-                                <p>Points: {{ matchup.teams.0.points }}</p>
+<div class="wrapper margin_top_24px">
+
+
+    <div class="carousel-navigation">
+        {% if current_week > 1 %}
+            <a href="{% url 'matchups' league_id previous_week %}" class="carousel-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="arrow-icon">
+                    <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"
+                          fill="currentColor"/>
+                </svg>
+            </a>
+        {% endif %}
+        <h3>Week {{ current_week }} Matchups</h3>
+        {% if  current_week < 18 %}
+            <a href="{% url 'matchups' league_id next_week %}" class="carousel-button">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="arrow-icon">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                          fill="currentColor"/>
+                </svg>
+            </a>
+        {% endif %}
+
+    </div>
+    <div class="matchups flex_column">
+        {% for matchup in weekly_matchups %}
+            <div class="weekly_matchup margin_top_24px">
+                <div class="headers flex_row justify_content_space_between">
+                    <!-- Team 1 Header -->
+                    <div class="team1_header flex_row align_items_center justify_content_space_evenly
+                {% if matchup.teams.0.points > matchup.teams.1.points %}
+                    winner
+                {% elif matchup.teams.0.points < matchup.teams.1.points %}
+                    loser
+                {% else %}
+                    draw
+                {% endif %}">
+
+                        <div class="photo_container flex_row align_items_center">
+                            <div class="player_photo"
+                                    {% if matchup.teams.0.avatar %}
+                                 style="background-image: url('https://sleepercdn.com/avatars/{{ matchup.teams.0.avatar }}');"
+                                    {% else %}
+                                 style="background-image: url('{% static 'images/default_picture.jfif' %}');"
+                                    {% endif %}>
                             </div>
                         </div>
-
-                        <div class="player_container">
+                        <div class="team_name">
+                            <h4>{{ matchup.teams.0.team_name }}</h4>
+                        </div>
+                        <div class="total_points">
+                            <p>Points: {{ matchup.teams.0.points }}</p>
+                        </div>
+                    </div>
+                    <div class="team_1_rosters_mobile flex_row" style="display: none">
+                        <div class="team1_roster_mobile">
                             <table class="player_table">
                                 <tbody>
                                 {% for player in matchup.teams.0.players %}
@@ -74,30 +96,37 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
 
-                    <!-- Team 2 Info -->
-                    <div class="team team-2 user_card flex_column">
-                        <div class="card_header flex_row align_items_center justify_content_space_evenly"
-                             id="team2-header">
-                            <div class="photo_container flex_row align_items_center justify_content_space_around">
-                                <div class="player_photo"
-                                        {% if matchup.teams.1.avatar %}
-                                     style="background-image: url('https://sleepercdn.com/avatars/{{ matchup.teams.1.avatar }}');"
-                                        {% else %}
-                                     style="background-image: url('{% static 'images/default_picture.jfif' %}');"
-                                        {% endif %}>
-                                </div>
-                                <div class="team_name">
-                                    <h4>{{ matchup.teams.1.team_name }}</h4>
-                                </div>
-                            </div>
-                            <div class="total_points">
-                                <p>Points: {{ matchup.teams.1.points }}</p>
+                    <!-- Team 2 Header -->
+                    <div class="team2_header flex_row align_items_center justify_content_space_evenly
+                {% if matchup.teams.1.points > matchup.teams.0.points %}
+                    winner
+                {% elif matchup.teams.1.points < matchup.teams.0.points %}
+                    loser
+                {% else %}
+                    draw
+                {% endif %}">
+
+                        <div class="photo_container flex_row align_items_center justify_content_between">
+                            <div class="player_photo"
+                                    {% if matchup.teams.1.avatar %}
+                                 style="background-image: url('https://sleepercdn.com/avatars/{{ matchup.teams.1.avatar }}');"
+                                    {% else %}
+                                 style="background-image: url('{% static 'images/default_picture.jfif' %}');"
+                                    {% endif %}>
                             </div>
                         </div>
-
-                        <div class="player_container">
+                        <div class="team_name">
+                            <h4>{{ matchup.teams.1.team_name }}</h4>
+                        </div>
+                        <div class="total_points">
+                            <p>Points: {{ matchup.teams.1.points }}</p>
+                        </div>
+                    </div>
+                    <div class="team_2_rosters_mobile flex_row" style="display: none">
+                        <div class="team2_roster_mobile">
                             <table class="player_table">
                                 <tbody>
                                 {% for player in matchup.teams.1.players %}
@@ -122,56 +151,166 @@
                             </table>
                         </div>
                     </div>
+
                 </div>
-            {% endfor %}
-        {% else %}
-            <p>No matchups available.</p>
-        {% endif %}
+                <!--Rosters for desktop view -->
+                <div class="team_rosters flex_row" style="display: none">
+                    <div class="team1_roster">
+                        <table class="player_table">
+                            <tbody>
+                            {% for player in matchup.teams.0.players %}
+                                <tr class="player_row">
+                                    <td class="nfl_player_photo padding_left_16px">
+                                        {% if player.position != "DEF" %}
+                                            <div class="nfl_player_photo"
+                                                 style="background-image: url('https://sleepercdn.com/content/nfl/players/thumb/{{ player.player_id }}.jpg');">
+                                            </div>
+                                        {% elif player.position == "DEF" %}
+                                            <div class="nfl_player_photo nfl_team_photo"
+                                                 style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.player_id|lower }}.png'); background-position: center;">
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="player_name">{{ player.full_name }}</td>
+                                    <td class="player_points">{{ player.points }}</td>
+                                    <td class="player_pos">{{ player.position }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="team2_roster">
+                        <table class="player_table">
+                            <tbody>
+                            {% for player in matchup.teams.1.players %}
+                                <tr class="player_row">
+                                    <td class="nfl_player_photo padding_left_16px">
+                                        {% if player.position != "DEF" %}
+                                            <div class="nfl_player_photo"
+                                                 style="background-image: url('https://sleepercdn.com/content/nfl/players/thumb/{{ player.player_id }}.jpg');">
+                                            </div>
+                                        {% elif player.position == "DEF" %}
+                                            <div class="nfl_player_photo nfl_team_photo"
+                                                 style="background-image: url('https://sleepercdn.com/images/team_logos/nfl/{{ player.player_id|lower }}.png'); background-position: center;">
+                                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="player_name">{{ player.full_name }}</td>
+                                    <td class="player_points">{{ player.points }}</td>
+                                    <td class="player_pos">{{ player.position }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
     </div>
+
 </div>
+{#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#}
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        // Iterate through each matchup
-        $('.matchup').each(function () {
-            var team1Points = parseInt($(this).data('team1-points'));
-            var team2Points = parseInt($(this).data('team2-points'));
-
-            var team1Header = $(this).find('#team1-header');
-            var team2Header = $(this).find('#team2-header');
-
-            if (team1Points > team2Points) {
-                team1Header.addClass('winner');
-                team2Header.addClass('loser');
-            } else if (team2Points > team1Points) {
-                team1Header.addClass('loser');
-                team2Header.addClass('winner');
-            } else {
-                team1Header.addClass('draw');
-                team2Header.addClass('draw');
-            }
-        });
-
-        $('.player_pos').each(function () {
-            var position = $(this).text().trim();
-            if (position === 'QB') {
-                $(this).addClass('position_QB');
-            } else if (position === 'RB') {
-                $(this).addClass('position_RB');
-            } else if (position === 'WR') {
-                $(this).addClass('position_WR');
-            } else if (position === 'TE') {
-                $(this).addClass('position_TE');
-            } else if (position === 'K') {
-                $(this).addClass('position_kicker');
-            } else if (position === 'DEF') {
-                $(this).addClass('position_defense');
-            } else if (position === 'NA') {
-                $(this).addClass('no_position');
-            }
-        });
+    $('.player_pos').each(function () {
+        var position = $(this).text().trim();
+        if (position === 'QB') {
+            $(this).addClass('position_QB');
+        } else if (position === 'RB') {
+            $(this).addClass('position_RB');
+        } else if (position === 'WR') {
+            $(this).addClass('position_WR');
+        } else if (position === 'TE') {
+            $(this).addClass('position_TE');
+        } else if (position === 'K') {
+            $(this).addClass('position_kicker');
+        } else if (position === 'DEF') {
+            $(this).addClass('position_defense');
+        } else if (position === 'NA') {
+            $(this).addClass('no_position');
+        }
     });
+
+
+$(document).ready(function () {
+    function toggleTeamRosters() {
+        if ($(window).width() >= 700) {
+            $('.headers').off('click').on('click', function () {
+                const team1Header = $(this).find('.team1_header');
+                const team2Header = $(this).find('.team2_header');
+                const teamRosters = $(this).next('.team_rosters');
+
+                // Immediately add the class to the clicked header
+                $(this).addClass('headers_on');
+
+                if (teamRosters.is(':visible')) {
+                    teamRosters.slideUp(300, function () {
+                        // Remove the class after the animation is complete
+                        $(this).prev('.headers').removeClass('headers_on');
+                        team1Header.removeClass('team1_header_on');
+                        team2Header.removeClass('team2_header_on');
+                    });
+                } else {
+                    teamRosters.slideDown(300, function () {
+                        team1Header.addClass('team1_header_on');
+                        team2Header.addClass('team2_header_on');
+                    });
+
+                    team1Header.addClass('team1_header_on');
+                    team2Header.addClass('team2_header_on');
+                }
+            });
+        } else {
+            $('.headers').off('click');
+        }
+    }
+
+    toggleTeamRosters();
+
+    $(window).resize(function () {
+        toggleTeamRosters();
+    });
+});
+
+
+
+$(document).ready(function () {
+    $('.team1_header').click(function () {
+        const team1Rosters = $(this).siblings('.team_1_rosters_mobile');
+        const team2Rosters = $(this).parent().siblings().find('.team_2_rosters_mobile');
+
+        team2Rosters.slideUp();
+        team1Rosters.slideToggle();
+    });
+
+    $('.team2_header').click(function () {
+        const team2Rosters = $(this).siblings('.team_2_rosters_mobile');
+        const team1Rosters = $(this).parent().siblings().find('.team_1_rosters_mobile');
+
+        team1Rosters.slideUp();
+        if (team2Rosters.is(':visible')) {
+
+            team2Rosters.slideUp(() => {
+                $(this).removeClass('team2_header_mobile_on');
+                $(this).addClass('team2_header_mobile_off')
+            });
+        } else {
+            $(this).addClass('team2_header_mobile_on');
+            $(this).removeClass('team2_header_mobile_off')
+
+
+            team2Rosters.slideDown();
+        }
+    });
+});
+
+
 </script>
+
 
 </body>
 </html>
+
+

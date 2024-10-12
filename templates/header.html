@@ -4,11 +4,11 @@
         <div class="logo_fantasy_name_container flex_column align_items_center">
 
             {% if league_avatar != null %}
-                <div id="fantasy_logo" class="logo"
+                <div id="fantasy_logo" class="logo margin_top_8px"
                      style="background-image: url('https://sleepercdn.com/avatars/{{ league_avatar }}');">
                 </div>
             {% else %}
-                <div id="fantasy_logo" class="logo"
+                <div id="fantasy_logo" class="logo margin_top_8px"
                      style="background-image: url('{% static 'images/default_picture.jfif' %}' );">
                 </div>
             {% endif %}

@@ -1,6 +1,7 @@
 {% load static %}
 {% include 'header.html' %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/project_common_styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'standings.css' %}">
 
 <html>
 <head>
@@ -12,11 +13,31 @@
 </head>
 <body>
 
-{{ user_list }}
 
-{#------------STANDINGS-----------------#}
-{##}
-{#{{ rosters }}#}
+<div class="wrapper margin_top_24px">
+    <div class="standings_container">
+        {% for user in user_list %}
+            <div class="flex_row flex-item team_card">
+                <div class="player_photo"
+                    {% if user.avatar != null %}
+                        style="background-image: url('https://sleepercdn.com/avatars/{{ user.avatar }}');"
+                    {% else %}
+                        style="background-image: url('{% static 'images/default_picture.jfif' %}');"
+                    {% endif %}>
+                </div>
+                <div class="team_info">
+                    <div class="user_name">{{ user.team_name }}</div>
+                    <div class="team_stats">
+                        <span class="wins">Wins: {{ user.wins }}</span>
+                        <span class="losses">Losses: {{ user.losses }}</span>
+                        <span class="ties">Ties: {{ user.ties }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
 
 </body>
 </html>

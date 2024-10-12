@@ -106,8 +106,12 @@ def matchups(request, league_id, current_week):
 
 
 def standings(request, league_id):
+    league_info = get_league_info(league_id)
     rosters = get_rosters_in_league(league_id)
     user_list = get_users_in_league(league_id)
+    league_name = league_info['league_name']
+    league_avatar = league_info['league_avatar']
+
     roster_dict = {roster['owner_id']: roster for roster in rosters}
 
     for user in user_list:
@@ -117,10 +121,20 @@ def standings(request, league_id):
             user['losses'] = roster_dict[owner_id]['losses']
             user['ties'] = roster_dict[owner_id]['ties']
 
+    # Ensure only users with wins, losses, and ties are included
+    user_list = [user for user in user_list if 'wins' in user and 'losses' in user and 'ties' in user]
+
+    # Sort user_list by wins in descending order
+    user_list = sorted(user_list, key=lambda user: user['wins'], reverse=True)
+
     data = get_nfl_state()
     current_week = data.get('week')
 
+
+
     context = {
+        'league_name': league_name,
+        'league_avatar': league_avatar,
         'user_list': user_list,
         'rosters': rosters,
         'league_id': league_id,

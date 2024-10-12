@@ -21,8 +21,8 @@ body {
 .header {
     background-image: url('/static/images/vecteezy_superbowl-stadium-in-night-background_20324267.jpg');
     background-repeat: no-repeat;
-    background-size: inherit;
-    background-position: center -420px;
+    background-size: cover; /* Ensures the image covers the whole header */
+    background-position: center bottom;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 .league_name h2 {
     color: #ffffff;
     padding: 0 10px;
-    text-shadow: 1px 1px 20px white;
+    /*text-shadow: 1px 1px 20px white;*/
     text-align: center;
 }
 
@@ -435,7 +435,6 @@ h1, h2, h3, h4, h5, h6 {
 .no_position {
     color: white;
 }
-
 
 
 /*Matchups HTML*/

@@ -21,7 +21,7 @@ body {
 .header {
     background-image: url('/static/images/vecteezy_superbowl-stadium-in-night-background_20324267.jpg');
     background-repeat: no-repeat;
-    background-size: cover; /* Ensures the image covers the whole header */
+    background-size: cover;
     background-position: center bottom;
 }
 

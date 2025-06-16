@@ -25,8 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = False
 
 
-ALLOWED_HOSTS = ["mysleeperapi.com", "www.mysleeperapi.com"]
-CSRF_TRUSTED_ORIGINS = ["https://mysleeperapi.com", "https://www.mysleeperapi.com"]
+ALLOWED_HOSTS = [
+    "www.mysleeperapi.com",
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://www.mysleeperapi.com",
+]
 
 
 

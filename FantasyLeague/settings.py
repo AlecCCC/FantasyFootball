@@ -27,12 +27,14 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     "www.mysleeperapi.com",
+    "mysleeperapi.com",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://www.mysleeperapi.com",
     "https://mysleeperapi.com",
 ]
+
 
 
 

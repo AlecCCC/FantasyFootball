@@ -141,3 +141,5 @@ def standings(request, league_id):
         'current_week': current_week,
     }
     return render(request, 'standings.html', context)
+
+# League ID changes to new season, so I need to use a previous league ID.

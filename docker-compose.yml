@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  django:
+    image: zaneisop/mysleeperapi:beta
+    ports:
+      - "8000:8000"
+    # If you want to mount local code for development, uncomment below:
+    # volumes:
+    #   - .:/code
+    # command: python manage.py runserver 0.0.0.0:8000
+
+  cloudflaretunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflaretunnel
+    restart: unless-stopped
+    env_file:
+      - .env
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}

@@ -31,6 +31,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://www.mysleeperapi.com",
+    "https://mysleeperapi.com",
 ]
 
 

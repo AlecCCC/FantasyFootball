@@ -36,6 +36,11 @@ CSRF_TRUSTED_ORIGINS = [
     "https://www.mysleeperapi.com",
 ]
 
+SECURE_SSL_REDIRECT = True
+
+# Optional but recommended when behind a proxy like Heroku's load balancer
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 
 # Application definition

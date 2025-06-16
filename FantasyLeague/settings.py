@@ -19,13 +19,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+6gh#8_yk8^u%@s2+&o-%bwfa0++(s8dgdege-y*6kfco(7v1q'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['sleeperapi.herokuapp.com', 'sleeperapi-d168cb1e1349.herokuapp.com',"mysleeperapi.com", "www.mysleeperapi.com"]
+
+ALLOWED_HOSTS = ["mysleeperapi.com", "www.mysleeperapi.com"]
+CSRF_TRUSTED_ORIGINS = ["https://mysleeperapi.com", "https://www.mysleeperapi.com"]
+
+
 
 
 # Application definition
@@ -41,9 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://mysleeperapi.com', "https://sleeperapi-d168cb1e1349.herokuapp.com","https://www.mysleeperapi.com"
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

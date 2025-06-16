@@ -11,11 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,27 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-
-SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key-for-dev-only')
-
-
-
-ALLOWED_HOSTS = [
-    "mysleeperapi.com",
-    "www.mysleeperapi.com",
-    "sleeperapi-d168cb1e1349.herokuapp.com",  # for Heroku health checks
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    "https://mysleeperapi.com",
-    "https://www.mysleeperapi.com",
-]
-
-SECURE_SSL_REDIRECT = True
-
-# Optional but recommended when behind a proxy like Heroku's load balancer
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
+ALLOWED_HOSTS = ['sleeperapi.herokuapp.com', 'sleeperapi-d168cb1e1349.herokuapp.com',"mysleeperapi.com", "www.mysleeperapi.com", "*"]
 
 
 # Application definition
@@ -65,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://mysleeperapi.com', "https://sleeperapi-d168cb1e1349.herokuapp.com","https://www.mysleeperapi.com"
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

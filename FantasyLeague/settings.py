@@ -26,16 +26,15 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = [
-    "www.mysleeperapi.com",
     "mysleeperapi.com",
+    "www.mysleeperapi.com",
+    "sleeperapi-d168cb1e1349.herokuapp.com",  # for Heroku health checks
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://www.mysleeperapi.com",
     "https://mysleeperapi.com",
+    "https://www.mysleeperapi.com",
 ]
-
-
 
 
 

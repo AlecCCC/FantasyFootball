@@ -12,7 +12,16 @@ from django.shortcuts import render
 
 
 def splash_view(request):
-    current_year = datetime.now().year
+
+    now = datetime.now()
+    year = 0
+
+
+    if now.month >= 9:
+        year = now.year
+    else:
+        year = now.year -1
+
     if request.method == 'POST':
         username = request.POST.get('username')
         user_response = requests.get(f'https://api.sleeper.app/v1/user/{username}')
@@ -25,7 +34,7 @@ def splash_view(request):
                 else:
                     return render(request, 'splash.html', {'error': 'Invalid user data received'})
 
-                leagues_response = requests.get(f'https://api.sleeper.app/v1/user/{user_id}/leagues/nfl/{current_year}')
+                leagues_response = requests.get(f'https://api.sleeper.app/v1/user/{user_id}/leagues/nfl/{year}')
                 if leagues_response.status_code == 200:
                     leagues_data = leagues_response.json()
 

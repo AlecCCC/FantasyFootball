@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,7 +141,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
-
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 SECRET_KEY = config('SECRET_KEY', default='your-local-secret-key')

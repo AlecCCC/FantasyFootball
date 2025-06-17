@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mysleeperapi.com', 'https://sleeperapi-4ebd04f900cb.herokuapp.com/'
+    'https://mysleeperapi.com', 'https://sleeperapi-4ebd04f900cb.herokuapp.com'
 ]
 
 MIDDLEWARE = [

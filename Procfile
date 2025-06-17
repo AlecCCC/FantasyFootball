@@ -1,1 +1,1 @@
-web: gunicorn FantasyLeague.wsgi --log-file -
+web: gunicorn FantasyLeague.wsgi

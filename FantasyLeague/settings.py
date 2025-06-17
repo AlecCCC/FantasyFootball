@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from decouple import config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-+6gh#8_yk8^u%@s2+&o-%bwfa0++(s8dgdege-y*6kfco(7v1q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['sleeperapi.herokuapp.com', 'sleeperapi-d168cb1e1349.herokuapp.com',"mysleeperapi.com", "www.mysleeperapi.com", "*"]
+ALLOWED_HOSTS = ['*','FantasyLeague.herokuapp.com']
 
 
 # Application definition
@@ -41,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mysleeperapi.com', "https://sleeperapi-d168cb1e1349.herokuapp.com","https://www.mysleeperapi.com"
+    'https://mysleeperapi.com',
 ]
 
 MIDDLEWARE = [
@@ -130,3 +134,15 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ADDED FOR HEROKU
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+
+SECRET_KEY = config('SECRET_KEY', default='your-local-secret-key')

@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*','FantasyLeague.herokuapp.com']
+ALLOWED_HOSTS = ['*','https://sleeperapi-a16655d59009.herokuapp.com']
 
 
 # Application definition
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://mysleeperapi.com', 'https://sleeperapi-4ebd04f900cb.herokuapp.com'
+    'https://mysleeperapi.com', 'https://sleeperapi-a16655d59009.herokuapp.com'
 ]
 
 MIDDLEWARE = [

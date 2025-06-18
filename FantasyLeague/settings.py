@@ -28,9 +28,9 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*','https://sleeperapi-a16655d59009.herokuapp.com']
+ALLOWED_HOSTS = ['*', 'sleeperapi-a16655d59009.herokuapp.com']
 
 
 # Application definition

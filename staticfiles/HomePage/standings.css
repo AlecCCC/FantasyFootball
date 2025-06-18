@@ -1,0 +1,97 @@
+/* Overall container styling */
+
+.wrapper {
+    margin: 24px auto;
+    width: 50%;
+}
+
+.standings_container {
+    margin: 0 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    background-color: rgb(13, 64, 64);
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px black;
+}
+
+.team_card {
+    background-color: rgb(63, 110, 110);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 5px black;
+    justify-content: center;
+}
+
+.player_photo {
+    background-size: cover;
+    background-position: center;
+    height: 60px;
+    min-width: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #ffffff;
+}
+
+.team_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user_name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.team_stats {
+    display: flex;
+    gap: 20px;
+}
+
+.wins, .losses, .ties {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.team_card:last-child {
+    margin-bottom: 0;
+}
+
+
+@media screen and (max-width: 700px) {
+    .wrapper {
+        width: 90%;
+    }
+
+    .standings_container {
+        width: auto;
+    }
+
+    .team_card {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .player_photo {
+        margin: 0 0 10px 0;
+    }
+
+    .team_stats {
+        gap: 10px;
+    }
+
+    .user_name {
+        font-size: 16px;
+        text-align: center;
+    }
+
+    .wins, .losses, .ties {
+        font-size: 12px;
+    }
+}

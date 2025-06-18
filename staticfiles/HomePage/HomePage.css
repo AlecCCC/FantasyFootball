@@ -1,0 +1,138 @@
+
+
+.photo_container {
+    padding: 8px;
+}
+
+
+.card_container {
+    padding-top: 20px;
+    width: 90%;
+    margin: 0 auto;
+    /*background-color: beige;*/
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+
+.user_card {
+    border-radius: 20px 20px 30px 30px;
+    border: 1px solid black;
+    width: 450px;
+    height: auto;
+    margin: 20px;
+    box-shadow: 0px 0px 5px black;
+    overflow: hidden;
+    background-color: rgb(13, 64, 64);
+}
+
+.player_container {
+    background-color: rgb(13, 64, 64);
+    height: 100%;
+    padding: 10px 0 10px 0;
+    border-radius: 0px 0px 30px 30px;
+
+}
+
+.team_name {
+    padding: 8px;
+    text-align: center;
+    color: white;
+}
+
+.card_header {
+    border-radius: 20px 20px 0 0;
+    border-bottom: 1px solid black;
+    background-color: rgb(63, 110, 110);
+}
+
+
+/*.player_row {*/
+/*    border-bottom: 1px solid black;*/
+/*}*/
+
+.player_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: #ffffff 2px solid;
+    background-color: rgb(39, 69, 69);
+
+}
+
+.player_row {
+    height: auto;
+    border-bottom: 1px solid rgb(81, 80, 80);
+}
+
+.player_row:nth-last-child(1) {
+    border-bottom: none;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.nfl_player_photo {
+    margin: 5px 0 5px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 64px;
+    width: 64px;
+
+}
+
+.nfl_team_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 54px;
+    width: 54px;
+
+}
+
+.player_name {
+    text-align: center;
+    color: white;
+}
+
+/*.injured_player {*/
+/*    color: black;*/
+/*}*/
+
+
+.player_pos {
+    text-align: center;
+}
+
+.player_table {
+    width: 100%;
+}
+
+.position_QB {
+    color: rgb(252, 43, 109);
+}
+
+.position_RB {
+    color: rgb(32, 206, 184);
+}
+
+.position_WR {
+    color: rgb(89, 167, 255)
+}
+
+.position_TE {
+    color: rgb(254, 174, 88);
+}
+
+.position_kicker {
+    color: rgb(201, 108, 255);
+}
+
+.position_defense {
+    color: rgb(191, 95, 64);
+}
+
+.no_position {
+    color: white;
+}

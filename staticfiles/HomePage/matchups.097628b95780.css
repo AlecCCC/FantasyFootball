@@ -1,0 +1,230 @@
+.carousel-navigation {
+    display: flex;
+    width: 95%;
+    max-width: 600px;
+    margin: 24px auto;
+    align-items: center;
+    color: whitesmoke;
+}
+
+.carousel-button {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.carousel-button .arrow-icon {
+    width: 24px; /* Adjust size */
+    height: auto;
+    color: #3498db; /* This sets the color of the SVG */
+}
+
+.carousel-navigation h3 {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.weekly_matchup {
+    height: auto;
+    margin: 24px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 5px black;
+    border-radius: 20px;
+    width: 100%; /* Ensure the matchup takes full width */
+    max-width: 600px; /* Set a max width for consistent size */
+}
+
+.headers {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    background-color: rgb(63, 110, 110);
+    border-radius: 20px;
+    height: 90px;
+    cursor: pointer;
+}
+
+.team1_header {
+    border-radius: 20px 0 0 20px;
+}
+
+.team2_header {
+    border-radius: 0 20px 20px 0;
+}
+
+
+.team1_header, .team2_header {
+    width: 50%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.photo_container {
+    padding: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.team2_header {
+    flex-direction: row-reverse;
+}
+
+.team_rosters {
+    width: 100%; /* Full width for consistency */
+    justify-content: space-between;
+    background-color: rgb(13, 64, 64);
+    border-radius: 0 0 20px 20px;
+}
+
+.player_name {
+    text-align: center;
+    color: white;
+}
+
+.team1_roster, .team2_roster {
+    width: 50%;
+}
+
+.player_photo {
+    flex-shrink: 0;
+    min-width: 60px;
+    min-height: 60px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    border: #ffffff 2px solid;
+    background-color: rgb(39, 69, 69);
+}
+
+.team_name {
+    padding: 8px;
+    text-align: center;
+    color: white;
+    flex-grow: 1;
+}
+
+.total_points {
+    text-align: center;
+    padding: 8px;
+}
+
+.nfl_player_photo {
+    margin: 5px 0;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 64px;
+    width: 64px;
+}
+
+.nfl_team_photo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 54px;
+    width: 54px;
+}
+
+.player_points {
+    text-align: left;
+}
+
+.winner {
+    background-color: #6abf69;
+    color: white;
+}
+
+.loser {
+    background-color: #e57373;
+    color: white;
+}
+
+.team_1_rosters_mobile, .team_2_rosters_mobile {
+    background-color: rgb(13, 64, 64);
+    width: 100%;
+}
+
+.team1_roster_mobile, .team2_roster_mobile {
+    width: 100%;
+}
+
+.team_2_rosters_mobile {
+    border-radius: 0 0 20px 20px;
+}
+
+/*BORDER RADIUS CLASSES*/
+
+.headers_on {
+    border-radius:  0 0 0 0;
+}
+
+/*DESKTOP*/
+.headers_on {
+    border-radius: 20px 20px 0 0;
+}
+
+.team1_header_on {
+    border-radius: 20px 0 0 0;
+}
+
+.team2_header_on {
+    border-radius: 0 20px 0 0;
+}
+
+/*MOBILE*/
+
+
+@media (max-width: 700px) {
+
+    .wrapper {
+        margin: 0 16px 0 16px;
+    }
+
+    .headers {
+        height: auto;
+        /*background-color: rgb(63, 110, 110);*/
+    }
+
+    .team_rosters {
+        display: none !important;
+    }
+
+    .team1_header, .team2_header {
+        width: 100%;
+        justify-content: flex-start;
+        flex-direction: row;
+        height: auto;
+    }
+
+
+    .team1_header {
+        border-radius: 20px 20px 0 0
+    }
+
+    .team2_header {
+        border-radius: 0 0 20px 20px
+    }
+
+    .team2_header_mobile_on {
+        border-radius: 0;
+    }
+
+    .team2_header_mobile_off {
+        border-radius: 0 0 20px 20px;
+    }
+}
+
+@media (min-width: 700px) {
+    .team_1_rosters_mobile, .team_2_rosters_mobile {
+        display: none !important;
+    }
+
+}
+
+

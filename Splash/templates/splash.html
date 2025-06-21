@@ -25,12 +25,30 @@
     <div class="wrapper">
 
         <div class="wrapper_content margin_top_56px">
-            <form class="justify_content_center" id="splash_form" method="post" action="{% url 'splash' %}">
-                {% csrf_token %}
-                <label for="user_name_input"></label>
-                <input id="user_name_input" type="text" name="username" placeholder="Sleeper Username" required>
-                <button id="user_submit_input" type="submit">Submit</button>
-            </form>
+ <form class="justify_content_center" id="splash_form" method="post" action="{% url 'splash' %}">
+    {% csrf_token %}
+
+    <div>
+        <label for="user_name_input"></label>
+        <input id="user_name_input" type="text" name="username" placeholder="Sleeper Username" required>
+    </div>
+
+    <div>
+        <label for="year_input"></label>
+        <input
+            id="year_input"
+            type="number"
+            name="year"
+            placeholder="Year"
+            pattern="\d{4}"
+            maxlength="4"
+            required
+        >
+    </div>
+
+    <button id="user_submit_input" type="submit">Submit</button>
+</form>
+
 
             <div id="leagues-container">
                 {% if leagues %}

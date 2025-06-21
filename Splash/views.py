@@ -1,29 +1,19 @@
 from datetime import datetime
-
 import requests
-from django.shortcuts import render
-
-import requests
-from django.shortcuts import render
-
-import requests
-from datetime import datetime
 from django.shortcuts import render
 
 
 def splash_view(request):
-
-    now = datetime.now()
-    year = 0
-
-
-    if now.month >= 9:
-        year = now.year
-    else:
-        year = now.year -1
-
     if request.method == 'POST':
         username = request.POST.get('username')
+        year_input = request.POST.get('year')
+
+        try:
+            year = int(year_input)
+        except (TypeError, ValueError):
+            now = datetime.now()
+            year = now.year if now.month >= 9 else now.year - 1
+
         user_response = requests.get(f'https://api.sleeper.app/v1/user/{username}')
 
         if user_response.status_code == 200:
@@ -38,11 +28,9 @@ def splash_view(request):
                 if leagues_response.status_code == 200:
                     leagues_data = leagues_response.json()
 
-                    # Check if leagues_data is empty and set a message
                     if not leagues_data:
-                        return render(request, 'splash.html', {'error': 'No leagues found for this user'})
+                        return render(request, 'splash.html', {'error': f'No leagues found for {year}'})
 
-                    # Process league avatars
                     for league in leagues_data:
                         avatar_id = league.get('avatar')
                         league['avatar_url'] = f"https://sleepercdn.com/avatars/{avatar_id}" if avatar_id else None
@@ -50,11 +38,12 @@ def splash_view(request):
                     context = {
                         'username': username,
                         'user_id': user_id,
-                        'leagues': leagues_data
+                        'leagues': leagues_data,
+                        'year': year
                     }
                     return render(request, 'splash.html', context)
                 else:
-                    return render(request, 'splash.html', {'error': 'Failed to fetch leagues'})
+                    return render(request, 'splash.html', {'error': f'Failed to fetch leagues for {year}'})
             except ValueError:
                 return render(request, 'splash.html', {'error': 'Failed to parse user data'})
         else:
